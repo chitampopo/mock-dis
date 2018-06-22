@@ -21,12 +21,12 @@ public class Request {
 		//this.transaction_id = "COB000001-0";
 
 		this.user_data = new UserData();
-		this.user_data.setFirstname("First name");
-		this.user_data.setLastname("Last name");
-		this.user_data.setCity("Vessy");
+		this.user_data.setFirstname("Account");
+		this.user_data.setLastname("Holder");
+		this.user_data.setCity("Zürich");
 		this.user_data.setStreet("Street");
 		this.user_data.setStreet_number("42");
-		this.user_data.setZip("1234");
+		this.user_data.setZip("8000");
 		this.user_data.setCountry("CH");
 		this.user_data.setDob("17.08.1990");
 

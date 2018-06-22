@@ -133,6 +133,17 @@
                           <div class="row">
                               <div class="col-6">
                                   <div class="form-group">
+                                      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+									    Show/Hide advance options
+									  </a>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                       <div id="collapseExample" class="collapse">   
+                          <div class="row">
+                              <div class="col-6">
+                                  <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">City</label>
                                       <input type="text" id="city" name="city" placeholder="Vessy" class="form-control" th:field="*{user_data.city}">
                                   </div>
@@ -249,6 +260,8 @@
                                   </div>
                               </div>
                           </div>
+                          
+                         </div>
                           <div class="card-footer">
 	                        <input type="submit" class="btn btn-primary btn-sm">
                       	  </div>
@@ -261,7 +274,7 @@
                         <strong>Server Information</strong>
                       </div>
                       <div class="card-body card-block">
-                        <form action="#" th:object="${metadata.server}" method="post" class="form-horizontal">
+                        <form action="#" th:object="${metadata.server}" method="post" class="form-horizontal" th:action="@{/updateServer}">
                         
                         	<div class="row">
                               <div class="col-6">
@@ -303,10 +316,13 @@
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Password</label>
                                   <div class="input-group">
-                                      <input type="password" id="password" name="password" placeholder="password" class="form-control" th:field="*{password}">
+                                      <input type="text" id="password" name="password" placeholder="password" class="form-control" th:field="*{password}">
                                   </div>
                               </div>
                          	 </div>
+                         	 <div class="card-footer">
+		                        <input type="submit" class="btn btn-primary btn-sm">
+	                      	 </div>
                         </form>
                       </div>
                     </div>
@@ -322,7 +338,12 @@
                         <form method="post" class="form-horizontal" action="#" th:action="@{/sendRequest}" th:object="${metadata}">
                           <div class="row form-group">
                             <div class="col-12 col-md-12">
-                            	<textarea name="textarea-input" id="textarea-input" rows="30" placeholder="Content..." class="form-control" th:text="${requestJson}"></textarea>
+                            	<textarea name="textarea-input" id="header" rows="3" placeholder="Content..." class="form-control" th:text="${requestHeader}"></textarea>
+                            </div>
+                          </div>
+                          <div class="row form-group">
+                            <div class="col-12 col-md-12">
+                            	<textarea name="textarea-input" id="request-body" rows="30" placeholder="Content..." class="form-control" th:text="${requestJson}"></textarea>
                             </div>
                           </div>
                           <div class="card-footer">
@@ -330,12 +351,8 @@
                       	  </div>
                         </form>
                       </div>
-                      
-
                     </div>
                   </div>
-                  
-                  
                 </div>
             </div><!-- .animated -->
         </div><!-- .content -->
