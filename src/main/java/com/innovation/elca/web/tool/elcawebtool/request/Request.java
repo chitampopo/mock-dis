@@ -1,24 +1,78 @@
 package com.innovation.elca.web.tool.elcawebtool.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Request {
 
-	private String confirmed;
+	private boolean confirmed;
 	private String transaction_id;
+	private String cob_id;
+	private String accountHolder;
 	private String webid_action_id;
 	private UserData user_data;
 	private UserDataPass user_data_pass;
 	private CallCenterData callcenter_data;
 
-	public String getConfirmed() {
+	public Request() {
+		this.confirmed = true;
+		this.cob_id = "COB000001";
+		this.accountHolder = "0";
+		this.webid_action_id = "889000009";
+		//this.transaction_id = "COB000001-0";
+
+		this.user_data = new UserData();
+		this.user_data.setFirstname("First name");
+		this.user_data.setLastname("Last name");
+		this.user_data.setCity("Vessy");
+		this.user_data.setStreet("Street");
+		this.user_data.setStreet_number("42");
+		this.user_data.setZip("1234");
+		this.user_data.setCountry("CH");
+		this.user_data.setDob("17.08.1990");
+
+		this.user_data_pass = new UserDataPass();
+		this.user_data_pass.setExhibition_authority("MyAuthority");
+		this.user_data_pass.setExpires_date("31.12.21");
+		this.user_data_pass.setDate_of_issue("01.01.10");
+		this.user_data_pass.setPass_nr("987654321");
+		this.user_data_pass.setPass_type("Personalausweis");
+		this.user_data_pass.setBirthplace("MyBirthplace");
+		this.user_data_pass.setBirthname("MyBirthname");
+		this.user_data_pass.setNationality("CH");
+
+		this.callcenter_data = new CallCenterData();
+		this.callcenter_data.setCallcenter_data_id("null");
+		this.callcenter_data.setCallcenter_id("null");
+	}
+
+	@JsonIgnore
+	public String getCob_id() {
+		return cob_id;
+	}
+
+	public void setCob_id(String cob_id) {
+		this.cob_id = cob_id;
+	}
+
+	@JsonIgnore
+	public String getAccountHolder() {
+		return accountHolder;
+	}
+
+	public void setAccountHolder(String accountHolder) {
+		this.accountHolder = accountHolder;
+	}
+
+	public boolean isConfirmed() {
 		return confirmed;
 	}
 
-	public void setConfirmed(String confirmed) {
+	public void setConfirmed(boolean confirmed) {
 		this.confirmed = confirmed;
 	}
 
 	public String getTransaction_id() {
-		return transaction_id;
+		return getCob_id() + "-" + getAccountHolder();
 	}
 
 	public void setTransaction_id(String transaction_id) {
