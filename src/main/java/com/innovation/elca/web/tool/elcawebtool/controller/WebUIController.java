@@ -35,8 +35,15 @@ public class WebUIController {
 	public String updateMetadata(@ModelAttribute("metadata") Metadata metadata, Model model) throws JsonProcessingException {
 		model.addAttribute("requestJson", mapper.writerWithDefaultPrettyPrinter().writeValueAsString(metadata.getRequest()));
 		
+		//Send signal to Axon
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.postForEntity(buildURL(metadata.getServer()), mapper.writerWithDefaultPrettyPrinter().writeValueAsString(metadata.getRequest()), String.class);
+		
+		//Upload file to DIS folder
+		
+		//Waiting until file handled
+		
+		
         return "index";
     }
 	

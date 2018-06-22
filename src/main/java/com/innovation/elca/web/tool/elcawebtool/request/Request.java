@@ -24,7 +24,7 @@ public class Request {
 		this.user_data.setFirstname("Account");
 		this.user_data.setLastname("Holder");
 		this.user_data.setCity("Zürich");
-		this.user_data.setStreet("Street");
+		this.user_data.setStreet("Bahnhofstrasse");
 		this.user_data.setStreet_number("42");
 		this.user_data.setZip("8000");
 		this.user_data.setCountry("CH");
