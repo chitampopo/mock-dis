@@ -1,5 +1,12 @@
 package com.innovation.elca.web.tool.elcawebtool.request;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+@Configuration
+@ConfigurationProperties("metadata")
+@PropertySource("classpath:application.properties")
 public class Metadata {
 
 	private Request request;

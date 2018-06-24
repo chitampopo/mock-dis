@@ -13,37 +13,7 @@ public class Request {
 	private UserDataPass user_data_pass;
 	private CallCenterData callcenter_data;
 
-	public Request() {
-		this.confirmed = true;
-		this.cob_id = "COB000001";
-		this.accountHolder = "0";
-		this.webid_action_id = "889000009";
-		//this.transaction_id = "COB000001-0";
-
-		this.user_data = new UserData();
-		this.user_data.setFirstname("Account");
-		this.user_data.setLastname("Holder");
-		this.user_data.setCity("Zürich");
-		this.user_data.setStreet("Bahnhofstrasse");
-		this.user_data.setStreet_number("42");
-		this.user_data.setZip("8000");
-		this.user_data.setCountry("CH");
-		this.user_data.setDob("17.08.1990");
-
-		this.user_data_pass = new UserDataPass();
-		this.user_data_pass.setExhibition_authority("MyAuthority");
-		this.user_data_pass.setExpires_date("31.12.21");
-		this.user_data_pass.setDate_of_issue("01.01.10");
-		this.user_data_pass.setPass_nr("987654321");
-		this.user_data_pass.setPass_type("Personalausweis");
-		this.user_data_pass.setBirthplace("MyBirthplace");
-		this.user_data_pass.setBirthname("MyBirthname");
-		this.user_data_pass.setNationality("CH");
-
-		this.callcenter_data = new CallCenterData();
-		this.callcenter_data.setCallcenter_data_id("null");
-		this.callcenter_data.setCallcenter_id("null");
-	}
+	public Request() {}
 
 	@JsonIgnore
 	public String getCob_id() {

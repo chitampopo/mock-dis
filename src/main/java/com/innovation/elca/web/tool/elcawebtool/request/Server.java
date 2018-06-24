@@ -9,12 +9,7 @@ public class Server {
 	private String username;
 	private String password;
 
-	public Server() {
-		this.host = "127.0.0.1";
-		this.port = "8081";
-		this.context = "ivy";
-		this.application = "designer";
-	}
+	public Server() {}
 
 	public String getHost() {
 		return host;
@@ -64,4 +59,9 @@ public class Server {
 		this.password = password;
 	}
 
+	public String buildRequestHeader() {
+		String url = "http://" + this.host + ":" + this.port + "/" + this.application + "/" + this.context + "/" + this.application;
+		String authentication = this.username + "@" + this.password;
+		return String.format("POST %s \n %s", url, authentication);
+	}
 }

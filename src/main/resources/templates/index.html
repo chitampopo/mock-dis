@@ -80,19 +80,26 @@
                         <strong>Compose DIS Request</strong>
                       </div>
                       <div class="card-body card-block">
-                        <form action="#" th:object="${metadata.request}" method="post" class="form-horizontal" th:action="@{/updateRequest}" >
+                        <form action="#" th:object="${metadata}" method="post" class="form-horizontal" th:action="@{/updateRequest}" >
+                          
+                          <input type="hidden" th:field="*{server.host}">
+                          <input type="hidden" th:field="*{server.port}">
+                          <input type="hidden" th:field="*{server.context}">
+                          <input type="hidden" th:field="*{server.application}">
+                          <input type="hidden" th:field="*{server.username}">
+                          <input type="hidden" th:field="*{server.password}">
                           
                           <div class="row">
                               <div class="col-6">
                                    <div class="form-group">
 		                              <label for="cc-payment" class="control-label mb-1">Confirmed</label>
-		                              <input type="checkbox" checked  data-toggle="toggle" data-on="Enabled" data-off="Disabled" th:field="*{confirmed}">
+		                              <input type="checkbox" checked  data-toggle="toggle" data-on="Enabled" data-off="Disabled" th:field="*{request.confirmed}">
 		                          </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">WebID Action ID</label>
                                   <div class="input-group">
-                                      <input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control" th:field="*{webid_action_id}">
+                                      <input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control" th:field="*{request.webid_action_id}">
                                   </div>
                               </div>
                           </div>
@@ -101,13 +108,13 @@
                                <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">COB ID</label>
                                   <div class="form-group">
-                                      <input type="text" id="text-input" name="text-input" placeholder="COB000001" class="form-control" th:field="*{cob_id}">
+                                      <input type="text" id="text-input" name="text-input" placeholder="COB000001" class="form-control" th:field="*{request.cob_id}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">Account Holder</label>
-                                      <select name="select" id="select" class="form-control" th:field="*{accountHolder}">
+                                      <select name="select" id="select" class="form-control" th:field="*{request.accountHolder}">
 		                                <option value="0">Account Holder 1</option>
 		                                <option value="1">Account Holder 2</option>
 		                              </select>
@@ -119,13 +126,13 @@
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">First name</label>
-                                      <input type="text" id=""firstname"" name="firstname" placeholder="First Name" class="form-control" th:field="*{user_data.firstname}">
+                                      <input type="text" id=""firstname"" name="firstname" placeholder="First Name" class="form-control" th:field="*{request.user_data.firstname}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Last name</label>
                                   <div class="input-group">
-                                      <input type="text" id="lastname" name="lastname" placeholder="Last Name" class="form-control" th:field="*{user_data.lastname}">
+                                      <input type="text" id="lastname" name="lastname" placeholder="Last Name" class="form-control" th:field="*{request.user_data.lastname}">
                                   </div>
                               </div>
                           </div>
@@ -145,13 +152,13 @@
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">City</label>
-                                      <input type="text" id="city" name="city" placeholder="Vessy" class="form-control" th:field="*{user_data.city}">
+                                      <input type="text" id="city" name="city" placeholder="Vessy" class="form-control" th:field="*{request.user_data.city}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Zip code</label>
                                   <div class="input-group">
-                                      <input type="text" id="zip" name="zip" placeholder="1234" class="form-control" th:field="*{user_data.zip}">
+                                      <input type="text" id="zip" name="zip" placeholder="1234" class="form-control" th:field="*{request.user_data.zip}">
                                   </div>
                               </div>
                           </div>
@@ -160,13 +167,13 @@
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">Street</label>
-                                      <input type="text" id="street" name="street" placeholder="Street" class="form-control" th:field="*{user_data.street}">
+                                      <input type="text" id="street" name="street" placeholder="Street" class="form-control" th:field="*{request.user_data.street}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Street number</label>
                                   <div class="input-group">
-                                      <input type="text" id="streetnumber" name="streetnumber" placeholder="42" class="form-control" th:field="*{user_data.street_number}">
+                                      <input type="text" id="streetnumber" name="streetnumber" placeholder="42" class="form-control" th:field="*{request.user_data.street_number}">
                                   </div>
                               </div>
                           </div>
@@ -175,13 +182,13 @@
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">Date of birth</label>
-                                      <input type="text" id="dob" name="dob" placeholder="17.08.1990" class="form-control" th:field="*{user_data.dob}">
+                                      <input type="text" id="dob" name="dob" placeholder="17.08.1990" class="form-control" th:field="*{request.user_data.dob}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Exhibition Authority</label>
                                   <div class="input-group">
-                                      <input type="text" id="exhibitionauthority" name="exhibitionauthority" placeholder="MyAuthority" class="form-control" th:field="*{user_data_pass.exhibition_authority}">
+                                      <input type="text" id="exhibitionauthority" name="exhibitionauthority" placeholder="MyAuthority" class="form-control" th:field="*{request.user_data_pass.exhibition_authority}">
                                   </div>
                               </div>
                           </div>
@@ -190,13 +197,13 @@
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">Expires Date</label>
-                                      <input type="text" id=""expiresdate"" name="expiresdate" placeholder="31.12.21" class="form-control" th:field="*{user_data_pass.expires_date}">
+                                      <input type="text" id=""expiresdate"" name="expiresdate" placeholder="31.12.21" class="form-control" th:field="*{request.user_data_pass.expires_date}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Date of issue</label>
                                   <div class="input-group">
-                                      <input type="text" id="dateofissue" name="dateofissue" placeholder="01.01.10" class="form-control" th:field="*{user_data_pass.date_of_issue}">
+                                      <input type="text" id="dateofissue" name="dateofissue" placeholder="01.01.10" class="form-control" th:field="*{request.user_data_pass.date_of_issue}">
                                   </div>
                               </div>
                           </div>
@@ -205,13 +212,13 @@
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">Pass number</label>
-                                      <input type="text" id=""passnumber"" name="passnumber" placeholder="987654321" class="form-control" th:field="*{user_data_pass.pass_nr}">
+                                      <input type="text" id=""passnumber"" name="passnumber" placeholder="987654321" class="form-control" th:field="*{request.user_data_pass.pass_nr}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Pass type</label>
                                   <div class="input-group">
-                                      <input type="text" id="passtype" name="passtype" placeholder="Personalausweis" class="form-control" th:field="*{user_data_pass.pass_type}">
+                                      <input type="text" id="passtype" name="passtype" placeholder="Personalausweis" class="form-control" th:field="*{request.user_data_pass.pass_type}">
                                   </div>
                               </div>
                           </div>
@@ -220,13 +227,13 @@
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">Birthplace</label>
-                                      <input type="text" id="birthplace" name="birthplace" placeholder="MyBirthplace" class="form-control" th:field="*{user_data_pass.birthplace}">
+                                      <input type="text" id="birthplace" name="birthplace" placeholder="MyBirthplace" class="form-control" th:field="*{request.user_data_pass.birthplace}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Birth Name</label>
                                   <div class="input-group">
-                                      <input type="text" id="birthname" name="birthname" placeholder="MyBirthname" class="form-control" th:field="*{user_data_pass.birthname}">
+                                      <input type="text" id="birthname" name="birthname" placeholder="MyBirthname" class="form-control" th:field="*{request.user_data_pass.birthname}">
                                   </div>
                               </div>
                           </div>
@@ -235,13 +242,13 @@
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">Country Code</label>
-                                      <input type="text" id="country" name="country" placeholder="CH" class="form-control" th:field="*{user_data.country}">
+                                      <input type="text" id="country" name="country" placeholder="CH" class="form-control" th:field="*{request.user_data.country}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Nationality Code</label>
                                   <div class="input-group">
-                                      <input type="text" id="nationality" name="nationality" placeholder="CH" class="form-control" th:field="*{user_data_pass.nationality}">
+                                      <input type="text" id="nationality" name="nationality" placeholder="CH" class="form-control" th:field="*{request.user_data_pass.nationality}">
                                   </div>
                               </div>
                           </div>
@@ -250,20 +257,20 @@
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">Call Center Data ID</label>
-                                      <input type="text" id="callCenterDataId" name="callCenterDataId" placeholder="null" class="form-control" th:field="*{callcenter_data.callcenter_data_id}">
+                                      <input type="text" id="callCenterDataId" name="callCenterDataId" placeholder="null" class="form-control" th:field="*{request.callcenter_data.callcenter_data_id}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Call Center ID</label>
                                   <div class="input-group">
-                                      <input type="text" id="callCenterId" name="callCenterId" placeholder="null" class="form-control" th:field="*{callcenter_data.callcenter_id}">
+                                      <input type="text" id="callCenterId" name="callCenterId" placeholder="null" class="form-control" th:field="*{request.callcenter_data.callcenter_id}">
                                   </div>
                               </div>
                           </div>
                           
                          </div>
                           <div class="card-footer">
-	                        <input type="submit" class="btn btn-primary btn-sm">
+	                        <input type="submit" class="btn btn-primary btn-sm" value="Update Request">
                       	  </div>
                         </form>
                       </div>
@@ -274,19 +281,44 @@
                         <strong>Server Information</strong>
                       </div>
                       <div class="card-body card-block">
-                        <form action="#" th:object="${metadata.server}" method="post" class="form-horizontal" th:action="@{/updateServer}">
+                        <form action="#" th:object="${metadata}" method="post" class="form-horizontal" th:action="@{/updateServer}">
                         
+                        	<input type="hidden" th:field="*{request.confirmed}">
+                        	<input type="hidden" th:field="*{request.transaction_id}">
+                        	<input type="hidden" th:field="*{request.cob_id}">
+                        	<input type="hidden" th:field="*{request.accountHolder}">
+                        	<input type="hidden" th:field="*{request.webid_action_id}">
+                        	<input type="hidden" th:field="*{request.user_data.firstname}">
+                        	<input type="hidden" th:field="*{request.user_data.lastname}">
+                        	<input type="hidden" th:field="*{request.user_data.city}">
+                        	<input type="hidden" th:field="*{request.user_data.street}">
+                        	<input type="hidden" th:field="*{request.user_data.street_number}">
+                        	<input type="hidden" th:field="*{request.user_data.zip}">
+                        	<input type="hidden" th:field="*{request.user_data.country}">
+                        	<input type="hidden" th:field="*{request.user_data.dob}">
+                        	<input type="hidden" th:field="*{request.user_data_pass.exhibition_authority}">
+                        	<input type="hidden" th:field="*{request.user_data_pass.expires_date}">
+                        	<input type="hidden" th:field="*{request.user_data_pass.date_of_issue}">
+                        	<input type="hidden" th:field="*{request.user_data_pass.pass_nr}">
+                        	<input type="hidden" th:field="*{request.user_data_pass.pass_type}">
+                        	<input type="hidden" th:field="*{request.user_data_pass.birthplace}">
+                        	<input type="hidden" th:field="*{request.user_data_pass.birthname}">
+                        	<input type="hidden" th:field="*{request.user_data_pass.nationality}">
+                        	<input type="hidden" th:field="*{request.callcenter_data.callcenter_data_id}">
+                        	<input type="hidden" th:field="*{request.callcenter_data.callcenter_id}">
+                        	
+                        	
                         	<div class="row">
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">Host</label>
-                                      <input type="text" id="host" name="host" placeholder="127.0.0.1" class="form-control" th:field="*{host}"> 
+                                      <input type="text" id="host" name="host" placeholder="127.0.0.1" class="form-control" th:field="*{server.host}"> 
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Port</label>
                                   <div class="input-group">
-                                      <input type="text" id="port" name="port" placeholder="8081" class="form-control" th:field="*{port}">
+                                      <input type="text" id="port" name="port" placeholder="8081" class="form-control" th:field="*{server.port}">
                                   </div>
                               </div>
                          	 </div>
@@ -295,13 +327,13 @@
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">Context</label>
-                                      <input type="text" id="context" name="context" placeholder="ivy" class="form-control" th:field="*{context}">
+                                      <input type="text" id="context" name="context" placeholder="ivy" class="form-control" th:field="*{server.context}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Application</label>
                                   <div class="input-group">
-                                      <input type="text" id="application" name="application" placeholder="designer" class="form-control" th:field="*{application}">
+                                      <input type="text" id="application" name="application" placeholder="designer" class="form-control" th:field="*{server.application}">
                                   </div>
                               </div>
                          	 </div>
@@ -310,18 +342,18 @@
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">Username</label>
-                                      <input type=text id="username" name="username" placeholder="username" class="form-control" th:field="*{username}">
+                                      <input type=text id="username" name="username" placeholder="username" class="form-control" th:field="*{server.username}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Password</label>
                                   <div class="input-group">
-                                      <input type="text" id="password" name="password" placeholder="password" class="form-control" th:field="*{password}">
+                                      <input type="text" id="password" name="password" placeholder="password" class="form-control" th:field="*{server.password}">
                                   </div>
                               </div>
                          	 </div>
                          	 <div class="card-footer">
-		                        <input type="submit" class="btn btn-primary btn-sm">
+		                        <input type="submit" class="btn btn-primary btn-sm" value="Update Request">
 	                      	 </div>
                         </form>
                       </div>
@@ -347,7 +379,65 @@
                             </div>
                           </div>
                           <div class="card-footer">
-	                        <input type="submit" class="btn btn-primary btn-sm">
+	                        <input type="submit" class="btn btn-primary btn-sm" value="Submit Request">
+                      	  </div>
+                        </form>
+                      </div>
+                    </div>
+                    
+                    <div class="card">
+                      <div class="card-header">
+                        <strong>Upload file</strong>
+                      </div>
+                      <div class="card-body card-block">
+                        <form method="post" class="form-horizontal" action="#" th:action="@{/uploadFile}" th:object="${ftpInfo}" enctype="multipart/form-data">
+                          
+                          <div class="row">
+                              <div class="col-6">
+                                   <div class="form-group">
+		                              <label for="cc-payment" class="control-label mb-1">Confirmed</label>
+		                              <input type="checkbox" checked  data-toggle="toggle" data-on="Enabled" data-off="Disabled" th:field="*{enable}">
+		                          </div>
+                              </div>
+                          </div>
+                          
+                          <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="cc-exp" class="control-label mb-1">Host</label>
+                                    <input type="text" id="host" name="host" placeholder="127.0.0.1" class="form-control" th:field="*{host}"> 
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="x_card_code" class="control-label mb-1">Port</label>
+                                <div class="input-group">
+                                    <input type="text" id="port" name="port" placeholder="8081" class="form-control" th:field="*{port}">
+                                </div>
+                            </div>
+                       	 </div>
+                         	 
+                           <div class="row">
+                              <div class="col-6">
+                                  <div class="form-group">
+                                      <label for="cc-exp" class="control-label mb-1">Username</label>
+                                      <input type=text id="username" name="username" placeholder="username" class="form-control" th:field="*{username}">
+                                  </div>
+                              </div>
+                              <div class="col-6">
+                                  <label for="x_card_code" class="control-label mb-1">Password</label>
+                                  <div class="input-group">
+                                      <input type="text" id="password" name="password" placeholder="password" class="form-control" th:field="*{password}">
+                                  </div>
+                              </div>
+                         	 </div>
+                          
+                          <div class="row form-group">
+                            <div class="col-12 col-md-12">
+                            	 <input type="file" id="file" name="file" class="form-control" th:field="*{file}">
+                            </div>
+                          </div>
+                          <div class="card-footer">
+	                        <input type="submit" class="btn btn-primary btn-sm" value="Submit file">
                       	  </div>
                         </form>
                       </div>
