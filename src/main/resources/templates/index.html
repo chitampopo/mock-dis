@@ -23,9 +23,9 @@
     <link rel="stylesheet" href="scss/style.css">
 	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
+	<script src="js/vendor/jquery-2.1.4.min.js"></script>
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
-
+	
 </head>
 <body>
         <!-- Left Panel -->
@@ -38,7 +38,6 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="./"><img src="images/Swisscom.jpg" alt="Logo"></a>
-                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -396,7 +395,7 @@
                               <div class="col-6">
                                    <div class="form-group">
 		                              <label for="cc-payment" class="control-label mb-1">Confirmed</label>
-		                              <input type="checkbox" checked  data-toggle="toggle" data-on="Enabled" data-off="Disabled" th:field="*{enable}">
+		                              <input type="checkbox" checked  data-toggle="toggle" data-on="Enabled" data-off="Disabled" th:field="*{enable}" id="enable">
 		                          </div>
                               </div>
                           </div>
@@ -405,13 +404,13 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="cc-exp" class="control-label mb-1">Host</label>
-                                    <input type="text" id="host" name="host" placeholder="127.0.0.1" class="form-control" th:field="*{host}"> 
+                                    <input type="text" id="serverHost" name="host" placeholder="127.0.0.1" class="form-control" th:field="*{host}"> 
                                 </div>
                             </div>
                             <div class="col-6">
                                 <label for="x_card_code" class="control-label mb-1">Port</label>
                                 <div class="input-group">
-                                    <input type="text" id="port" name="port" placeholder="8081" class="form-control" th:field="*{port}">
+                                    <input type="text" id="serverPort" name="port" placeholder="8081" class="form-control" th:field="*{port}">
                                 </div>
                             </div>
                        	 </div>
@@ -420,13 +419,13 @@
                               <div class="col-6">
                                   <div class="form-group">
                                       <label for="cc-exp" class="control-label mb-1">Username</label>
-                                      <input type=text id="username" name="username" placeholder="username" class="form-control" th:field="*{username}">
+                                      <input type=text id="serverUserName" name="username" placeholder="username" class="form-control" th:field="*{username}">
                                   </div>
                               </div>
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Password</label>
                                   <div class="input-group">
-                                      <input type="text" id="password" name="password" placeholder="password" class="form-control" th:field="*{password}">
+                                      <input type="text" id="serverPassword" name="password" placeholder="password" class="form-control" th:field="*{password}">
                                   </div>
                               </div>
                          	 </div>
@@ -458,6 +457,26 @@
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
 	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
+	<script type="text/javascript">
+	$("#enable").click(function(){
+	    alert("The text has been changed.");
+	});	
+	
+// 	$('#enable').change(function() {
+// 		    alert('ajksdh');
+// 			if(this.checked) {
+// 		    	$('#serverHost').prop('readonly', true);
+// 		    	$('#serverPort').prop('readonly', true);
+// 		    	$('#serverUserName').prop('readonly', true);
+// 		    	$('#serverPasswrod').prop('readonly', true);
+// 		    } else {
+// 		    	$('#serverHost').prop('readonly', false);
+// 		    	$('#serverPort').prop('readonly', false);
+// 		    	$('#serverUserName').prop('readonly', false);
+// 		    	$('#serverPasswrod').prop('readonly', false);
+// 		    }
+// 		});
+	</script>
+	
 </body>
 </html>

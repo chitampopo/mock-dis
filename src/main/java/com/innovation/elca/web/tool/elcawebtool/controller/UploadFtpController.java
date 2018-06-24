@@ -1,5 +1,7 @@
 package com.innovation.elca.web.tool.elcawebtool.controller;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,7 +16,7 @@ import com.innovation.elca.web.tool.elcawebtool.request.FtpInfo;
 
 public class UploadFtpController {
 
-	public static void main(String fullPath, FtpInfo info) {
+	public static String main(String fullPath, FtpInfo info) {
 		String serverName = info.getHost();
         int port = info.getPort();
         String user = info.getUsername();
@@ -30,25 +32,23 @@ public class UploadFtpController {
  
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
             
-            File fileNeedUploaded = new ClassPathResource("DISfile.txt").getFile();
-            String secondRemoteFile = fileNeedUploaded.getName();
+            File fileNeedUploaded = new ClassPathResource("3-15199762141581264789438.jpg").getFile();
+            //File fileNeedUploaded = new File("C:\\Users\\Tam\\Pictures\\the bao hiem.PNG");
+            //String secondRemoteFile = fileNeedUploaded.getName();
             InputStream inputStream = new FileInputStream(fileNeedUploaded);
  
             System.out.println("Start uploading second file");
-            OutputStream outputStream = ftpClient.storeFileStream(secondRemoteFile);
-            byte[] bytesIn = new byte[4096];
-            int read = 0;
+            //OutputStream outputStream = ftpClient.storeFileStream(secondRemoteFile);
+            
+            try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileNeedUploaded.getPath()))) {
+        		ftpClient.storeFile(fileNeedUploaded.getName(), in);
+        	} catch (Exception e) {
+        	} finally {
+        		inputStream.close();
+               // outputStream.close();
+        	}
  
-            while ((read = inputStream.read(bytesIn)) != -1) {
-                outputStream.write(bytesIn, 0, read);
-            }
-            inputStream.close();
-            outputStream.close();
- 
-            boolean completed = ftpClient.completePendingCommand();
-            if (completed) {
-                System.out.println("The second file is uploaded successfully.");
-            }
+            System.out.println("The second file is uploaded successfully.");
  
         } catch (IOException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -63,5 +63,6 @@ public class UploadFtpController {
                 ex.printStackTrace();
             }
         }
+		return "index";
 	}
 }
