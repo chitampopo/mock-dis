@@ -1,4 +1,4 @@
-package com.innovation.elca.web.tool.elcawebtool.request;
+package com.innovation.mock.tool.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

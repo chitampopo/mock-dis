@@ -367,6 +367,12 @@
                       </div>
                       <div class="card-body card-block">
                         <form method="post" class="form-horizontal" action="#" th:action="@{/sendRequest}" th:object="${metadata}">
+                          <input type="hidden" th:field="*{server.host}">
+                          <input type="hidden" th:field="*{server.port}">
+                          <input type="hidden" th:field="*{server.context}">
+                          <input type="hidden" th:field="*{server.application}">
+                          <input type="hidden" th:field="*{server.username}">
+                          <input type="hidden" th:field="*{server.password}">
                           <div class="row form-group">
                             <div class="col-12 col-md-12">
                             	<textarea name="textarea-input" id="header" rows="3" placeholder="Content..." class="form-control" th:text="${requestHeader}"></textarea>

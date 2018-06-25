@@ -1,12 +1,12 @@
-package com.innovation.elca.web.tool.elcawebtool;
+package com.innovation.mock.tool;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ElcaWebToolApplication  {
+public class MockToolApplication  {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(ElcaWebToolApplication.class, args);
+		SpringApplication.run(MockToolApplication.class, args);
 	}
 }

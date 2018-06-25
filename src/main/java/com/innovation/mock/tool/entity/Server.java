@@ -1,4 +1,6 @@
-package com.innovation.elca.web.tool.elcawebtool.request;
+package com.innovation.mock.tool.entity;
+
+import com.innovation.mock.tool.util.UrlCreator;
 
 public class Server {
 
@@ -60,8 +62,25 @@ public class Server {
 	}
 
 	public String buildRequestHeader() {
-		String url = "http://" + this.host + ":" + this.port + "/" + this.application + "/" + this.context + "/" + this.application;
+		String url = buildURL();
 		String authentication = this.username + "@" + this.password;
 		return String.format("POST %s \n %s", url, authentication);
+	}
+	
+	public String buildAuthenInfo() {
+		return this.username + ":" + this.password;
+	}
+	
+	/**
+	 * Format: http://{ivy.engine.host}:{ivy.engine.http.port}/{ivy.engine.context}/api/{ivy.request.application}/customernotificationsink
+	 * 
+	 */
+	public String buildURL() {
+		UrlCreator urlCreator = new UrlCreator();
+		urlCreator.hasHost(this.getHost());
+		urlCreator.hasPort(this.getPort());
+		urlCreator.hasContext(this.getContext());
+		urlCreator.hasApplication(this.getApplication());
+		return urlCreator.build();
 	}
 }

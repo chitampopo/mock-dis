@@ -1,4 +1,4 @@
-package com.innovation.elca.web.tool.elcawebtool.request;
+package com.innovation.mock.tool.entity;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
