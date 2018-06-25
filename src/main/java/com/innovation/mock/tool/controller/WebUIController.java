@@ -30,7 +30,7 @@ public class WebUIController {
 	
 	@Autowired
 	private FtpInfo originFtpInfo;
-	
+		
 	private ObjectMapper mapper = new ObjectMapper();
 	
 	@RequestMapping(method = RequestMethod.GET, produces = "text/html")

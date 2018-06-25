@@ -4,6 +4,8 @@ import com.innovation.mock.tool.util.UrlCreator;
 
 public class Server {
 
+	private String project;
+	private String serverType;
 	private String host;
 	private String port;
 	private String context;
@@ -71,6 +73,22 @@ public class Server {
 		return this.username + ":" + this.password;
 	}
 	
+	public String getProject() {
+		return project;
+	}
+
+	public void setProject(String project) {
+		this.project = project;
+	}
+
+	public String getServerType() {
+		return serverType;
+	}
+
+	public void setServerType(String serverType) {
+		this.serverType = serverType;
+	}
+
 	/**
 	 * Format: http://{ivy.engine.host}:{ivy.engine.http.port}/{ivy.engine.context}/api/{ivy.request.application}/customernotificationsink
 	 * 
