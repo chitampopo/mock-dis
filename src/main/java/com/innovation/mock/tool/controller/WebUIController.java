@@ -20,6 +20,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.innovation.mock.tool.entity.FtpInfo;
 import com.innovation.mock.tool.entity.Metadata;
+import com.innovation.mock.tool.entity.ServerProductConfig;
 
 @Controller
 @RequestMapping("/")
@@ -31,6 +32,9 @@ public class WebUIController {
 	@Autowired
 	private FtpInfo originFtpInfo;
 		
+	@Autowired
+	private ServerProductConfig serverProductConfig;
+	
 	private ObjectMapper mapper = new ObjectMapper();
 	
 	@RequestMapping(method = RequestMethod.GET, produces = "text/html")
