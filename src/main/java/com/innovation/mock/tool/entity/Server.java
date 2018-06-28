@@ -63,12 +63,6 @@ public class Server {
 		this.password = password;
 	}
 
-	public String buildRequestHeader() {
-		String url = buildURL();
-		String authentication = this.username + "@" + this.password;
-		return String.format("POST %s \n %s", url, authentication);
-	}
-	
 	public String buildAuthenInfo() {
 		return this.username + ":" + this.password;
 	}
@@ -89,6 +83,13 @@ public class Server {
 		this.serverType = serverType;
 	}
 
+	
+	public String buildRequestHeader() {
+		String url = buildURL();
+		String authentication = this.username + "@" + this.password;
+		return String.format("POST %s \n %s", url, authentication);
+	}
+	
 	/**
 	 * Format: http://{ivy.engine.host}:{ivy.engine.http.port}/{ivy.engine.context}/api/{ivy.request.application}/customernotificationsink
 	 * 

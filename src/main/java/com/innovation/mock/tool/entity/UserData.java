@@ -5,7 +5,7 @@ public class UserData {
 	private String lastname;
 	private String city;
 	private String street;
-	private String street_number;
+	private String street_nr;
 	private String zip;
 	private String country;
 	private String dob;
@@ -42,12 +42,12 @@ public class UserData {
 		this.street = street;
 	}
 
-	public String getStreet_number() {
-		return street_number;
+	public String getStreet_nr() {
+		return street_nr;
 	}
 
-	public void setStreet_number(String street_number) {
-		this.street_number = street_number;
+	public void setStreet_nr(String street_number) {
+		this.street_nr = street_number;
 	}
 
 	public String getZip() {

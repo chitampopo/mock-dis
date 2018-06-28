@@ -173,7 +173,7 @@
                               <div class="col-6">
                                   <label for="x_card_code" class="control-label mb-1">Street number</label>
                                   <div class="input-group">
-                                      <input type="text" id="streetnumber" name="streetnumber" placeholder="42" class="form-control" th:field="*{request.user_data.street_number}">
+                                      <input type="text" id="streetnumber" name="streetnumber" placeholder="42" class="form-control" th:field="*{request.user_data.street_nr}">
                                   </div>
                               </div>
                           </div>
@@ -312,7 +312,7 @@
 	                        	<input type="hidden" th:field="*{request.user_data.lastname}">
 	                        	<input type="hidden" th:field="*{request.user_data.city}">
 	                        	<input type="hidden" th:field="*{request.user_data.street}">
-	                        	<input type="hidden" th:field="*{request.user_data.street_number}">
+	                        	<input type="hidden" th:field="*{request.user_data.street_nr}">
 	                        	<input type="hidden" th:field="*{request.user_data.zip}">
 	                        	<input type="hidden" th:field="*{request.user_data.country}">
 	                        	<input type="hidden" th:field="*{request.user_data.dob}">
@@ -406,12 +406,37 @@
 	                              </div>
 		                       </div>
 		                       <div id="collapseRequestReview" class="collapse">
+		                       	  <input type="hidden" th:field="*{request.confirmed}">
+	                        	<input type="hidden" th:field="*{request.transaction_id}">
+	                        	<input type="hidden" th:field="*{request.cob_id}">
+	                        	<input type="hidden" th:field="*{request.accountHolder}">
+	                        	<input type="hidden" th:field="*{request.webid_action_id}">
+	                        	<input type="hidden" th:field="*{request.user_data.firstname}">
+	                        	<input type="hidden" th:field="*{request.user_data.lastname}">
+	                        	<input type="hidden" th:field="*{request.user_data.city}">
+	                        	<input type="hidden" th:field="*{request.user_data.street}">
+	                        	<input type="hidden" th:field="*{request.user_data.street_nr}">
+	                        	<input type="hidden" th:field="*{request.user_data.zip}">
+	                        	<input type="hidden" th:field="*{request.user_data.country}">
+	                        	<input type="hidden" th:field="*{request.user_data.dob}">
+	                        	<input type="hidden" th:field="*{request.user_data_pass.exhibition_authority}">
+	                        	<input type="hidden" th:field="*{request.user_data_pass.expires_date}">
+	                        	<input type="hidden" th:field="*{request.user_data_pass.date_of_issue}">
+	                        	<input type="hidden" th:field="*{request.user_data_pass.pass_nr}">
+	                        	<input type="hidden" th:field="*{request.user_data_pass.pass_type}">
+	                        	<input type="hidden" th:field="*{request.user_data_pass.birthplace}">
+	                        	<input type="hidden" th:field="*{request.user_data_pass.birthname}">
+	                        	<input type="hidden" th:field="*{request.user_data_pass.nationality}">
+	                        	<input type="hidden" th:field="*{request.callcenter_data.callcenter_data_id}">
+	                        	<input type="hidden" th:field="*{request.callcenter_data.callcenter_id}">
 		                          <input type="hidden" th:field="*{server.host}">
 		                          <input type="hidden" th:field="*{server.port}">
 		                          <input type="hidden" th:field="*{server.context}">
 		                          <input type="hidden" th:field="*{server.application}">
 		                          <input type="hidden" th:field="*{server.username}">
 		                          <input type="hidden" th:field="*{server.password}">
+		                          <input type="hidden" th:field="*{server.project}">
+		                          <input type="hidden" th:field="*{server.serverType}">
 		                          <div class="row form-group">
 		                            <div class="col-12 col-md-12">
 		                            	<textarea name="textarea-input" id="header" rows="3" placeholder="Content..." class="form-control" th:text="${requestHeader}"></textarea>
@@ -433,8 +458,17 @@
                         <strong>Upload file</strong>
                       </div>
                       <div class="card-body card-block">
-                        <form method="post" class="form-horizontal" action="#" th:action="@{/uploadFile}" th:object="${ftpInfo}" enctype="multipart/form-data">
-                          
+                        <form method="post" class="form-horizontal" action="#" th:action="@{/uploadFile}" th:object="${metadata}">
+                          <input type="hidden" th:field="*{server.host}">
+		                          <input type="hidden" th:field="*{server.port}">
+		                          <input type="hidden" th:field="*{server.context}">
+		                          <input type="hidden" th:field="*{server.application}">
+		                          <input type="hidden" th:field="*{server.username}">
+		                          <input type="hidden" th:field="*{server.password}">
+		                          <input type="hidden" th:field="*{server.project}">
+		                          <input type="hidden" th:field="*{server.serverType}">
+		                          <input type="hidden" th:field="*{request.cob_id}">
+	                        	<input type="hidden" th:field="*{request.accountHolder}">
                           <div class="row">
                              <div class="col-6">
                                  <div class="form-group">
@@ -449,13 +483,13 @@
 	                            <div class="col-6">
 	                                <div class="form-group">
 	                                    <label for="serverHost" class="control-label mb-1">Host</label>
-	                                    <input type="text" id="serverHost" name="host" placeholder="127.0.0.1" class="form-control" th:field="*{host}"> 
+	                                    <input type="text" id="serverHost" name="host" placeholder="127.0.0.1" class="form-control" > 
 	                                </div>
 	                            </div>
 	                            <div class="col-6">
 	                                <label for="serverPort" class="control-label mb-1">Port</label>
 	                                <div class="input-group">
-	                                    <input type="text" id="serverPort" name="port" placeholder="8081" class="form-control" th:field="*{port}">
+	                                    <input type="text" id="serverPort" name="port" placeholder="8081" class="form-control" >
 	                                </div>
 	                            </div>
 	                       	 </div>
@@ -464,13 +498,13 @@
 	                              <div class="col-6">
 	                                  <div class="form-group">
 	                                      <label for="serverUserName" class="control-label mb-1">Username</label>
-	                                      <input type=text id="serverUserName" name="username" placeholder="username" class="form-control" th:field="*{username}">
+	                                      <input type=text id="serverUserName" name="username" placeholder="username" class="form-control" >
 	                                  </div>
 	                              </div>
 	                              <div class="col-6">
 	                                  <label for="serverPassword" class="control-label mb-1">Password</label>
 	                                  <div class="input-group">
-	                                      <input type="text" id="serverPassword" name="password" placeholder="password" class="form-control" th:field="*{password}">
+	                                      <input type="text" id="serverPassword" name="password" placeholder="password" class="form-control">
 	                                  </div>
 	                              </div>
 	                         </div>

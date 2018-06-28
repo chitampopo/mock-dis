@@ -24,27 +24,20 @@ public class UploadSftpController {
 		ChannelSftp sftp = null;
 		Session session = null;
 
-		String serverName = info.getHost();
-		int port = info.getPort();
-		String user = info.getUsername();
-		String pass = info.getPassword();
-
 		Properties config = new Properties();
 		config.put("StrictHostKeyChecking", "no");
 		config.put("PreferredAuthentications", "publickey,keyboard-interactive,password");
 
-		File fileNeedUploaded = new ClassPathResource("DIS_001023_177672700_COB000117-0_20171003171752524141.zip.gpg")
-				.getFile();
+		File fileNeedUploaded = new ClassPathResource("DIS_001023_177672700_COB000117-0_20171003171752524141.zip.gpg").getFile();
 		try {
-			session = ssh.getSession(user, serverName, port);
+			session = ssh.getSession(info.getUsername(), info.getHost(), info.getPort());
 			session.setConfig(config);
-			session.setPassword(pass);
+			session.setPassword(info.getPassword());
 			session.connect();
 			sftp = (ChannelSftp) session.openChannel("sftp");
 			sftp.connect();
 
-			sftp.put(new FileInputStream(fileNeedUploaded),	fullPath + fileNeedUploaded.getName(),
-					ChannelSftp.OVERWRITE);
+			sftp.put(new FileInputStream(fileNeedUploaded),	fullPath + fileNeedUploaded.getName(), ChannelSftp.OVERWRITE);
 
 		} catch (JSchException e) {
 			// Nothing

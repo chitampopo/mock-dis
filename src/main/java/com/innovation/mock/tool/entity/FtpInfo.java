@@ -3,7 +3,6 @@ package com.innovation.mock.tool.entity;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.web.multipart.MultipartFile;
 
 @Configuration
 @ConfigurationProperties("ftp")
@@ -15,7 +14,12 @@ public class FtpInfo {
 	private int port;
 	private String username;
 	private String password;
-	private MultipartFile file;
+
+	public FtpInfo(String host, int port) {
+		super();
+		this.host = host;
+		this.port = port;
+	}
 
 	public FtpInfo() {
 		this.enable = true;
@@ -60,13 +64,4 @@ public class FtpInfo {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public MultipartFile getFile() {
-		return file;
-	}
-
-	public void setFile(MultipartFile file) {
-		this.file = file;
-	}
-
 }

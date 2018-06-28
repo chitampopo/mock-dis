@@ -8,7 +8,6 @@ import org.springframework.context.annotation.PropertySource;
 @ConfigurationProperties("metadata")
 @PropertySource("classpath:application.properties")
 public class Metadata {
-
 	private Request request;
 	private Server server;
 

@@ -1,6 +1,8 @@
 package com.innovation.mock.tool.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Request {
 
@@ -79,6 +81,11 @@ public class Request {
 
 	public void setCallcenter_data(CallCenterData callcenter_data) {
 		this.callcenter_data = callcenter_data;
+	}
+	
+	public String toRequestBody() throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
 	}
 
 }
