@@ -57,9 +57,8 @@ public class WebUIController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		headers.add("Authorization", "Basic " + buildAuthenticationHeader());
-		String webIdResponseJson = buildJsonforWebIdResponse(metadata);
 		
-		HttpEntity<MultiValueMap<String, String>> request = buildRequestInformation(metadata, webIdResponseJson, headers);
+		HttpEntity<MultiValueMap<String, String>> request = buildRequestInformation(metadata, buildJsonforWebIdResponse(metadata), headers);
         new RestTemplate().postForObject(metadata.getServer().buildURL() , request, String.class);
 		
         model.addAttribute(Constants.METADATA, metadata);
@@ -85,6 +84,7 @@ public class WebUIController {
 		if(serverProductOptional.isPresent()) {
 			currentServer.setHost(serverProductOptional.get().getHost());
 			currentServer.setPort(serverProductOptional.get().getPort());
+			currentServer.setApplication(serverProductOptional.get().getEnvironmentApplication());
 		}
 		
 		metadata.setServer(currentServer);

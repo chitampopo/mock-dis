@@ -6,6 +6,7 @@ public class ServerProduct {
 	private String port;
 	private String sshPort;
 	private String disFolder;
+	private String environmentApplication;
 
 	public String getName() {
 		return name;
@@ -47,4 +48,11 @@ public class ServerProduct {
 		this.disFolder = disFolder;
 	}
 
+	public String getEnvironmentApplication() {
+		return environmentApplication;
+	}
+
+	public void setEnvironmentApplication(String environmentApplication) {
+		this.environmentApplication = environmentApplication;
+	}
 }

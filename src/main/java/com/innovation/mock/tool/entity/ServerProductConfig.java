@@ -10,7 +10,6 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(name = "props", value = "classpath:application.properties", ignoreResourceNotFound = false)
 @ConfigurationProperties(prefix = "config")
 public class ServerProductConfig {
-
 	List<ServerProduct> serverProducts;
 
 	public List<ServerProduct> getServerProducts() {
