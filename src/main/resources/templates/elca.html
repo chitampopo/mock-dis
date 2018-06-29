@@ -1,0 +1,165 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Mock DIS Tool</title>
+<meta name="description" content="Mock DIS Tool">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="apple-touch-icon" href="apple-icon.png">
+<link rel="shortcut icon" href="favicon.ico">
+
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/themify-icons.css">
+<link rel="stylesheet" href="css/flag-icon.min.css">
+<link rel="stylesheet" href="css/cs-skin-elastic.css">
+<!-- <link rel="stylesheet" href="assets/css/bootstrap-select.less"> -->
+<link rel="stylesheet" href="scss/style.css">
+<link
+	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+	rel="stylesheet">
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
+	rel='stylesheet' type='text/css'>
+<script src="js/vendor/jquery-2.1.4.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+</head>
+<body>
+	<!-- Left Panel -->
+
+	<aside id="left-panel" class="left-panel">
+		<nav class="navbar navbar-expand-sm navbar-default">
+
+			<div class="navbar-header">
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#main-menu" aria-controls="main-menu"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<i class="fa fa-bars"></i>
+				</button>
+				<a class="navbar-brand" href="./"><img src="images/Swisscom.jpg"
+					alt="Logo"></a>
+			</div>
+
+			<div id="main-menu" class="main-menu collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="index.html"> <i
+							class="menu-icon fa fa-dashboard"></i>Compose Request
+					</a></li>
+					<li><a href="index.html"> <i
+							class="menu-icon fa fa-dashboard"></i>History
+					</a></li>
+
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</nav>
+	</aside>
+	<!-- /#left-panel -->
+
+	<!-- Left Panel -->
+
+	<!-- Right Panel -->
+
+	<div id="right-panel" class="right-panel">
+
+		<div class="breadcrumbs">
+			<div class="col-sm-4">
+				<div class="page-header float-left">
+					<div class="page-title">
+						<h1>Compose Mock DIS request</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="content mt-3">
+		<form action="#" th:object="${elcaData}" method="post" class="form-horizontal" th:action="@{/updateRequest}" >
+			<div class="animated fadeIn">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="card">
+							<div class="card-header">
+								<strong>Compose DIS Request</strong>
+							</div>
+							<div class="card-body card-block">
+								<label for="x_card_code" class="control-label mb-1">Project</label>
+								<div class="input-group">
+									<input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control" th:field="*{dossierId}">
+								</div>
+								
+								<label for="x_card_code" class="control-label mb-1">Server</label>
+								<div class="input-group">
+									<input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control">
+								</div>
+								
+								<label for="x_card_code" class="control-label mb-1">Dossier Id</label>
+								<div class="input-group">
+									<input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control">
+								</div>
+								
+								<label for="x_card_code" class="control-label mb-1">Document Id</label>
+								<div class="input-group">
+									<input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control">
+								</div>
+								
+								<label for="x_card_code" class="control-label mb-1">Document Type</label>
+								<div class="input-group">
+									<input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-6"></div>
+				</div>
+			</div>
+			</form>
+			<!-- .animated -->
+		</div>
+		<!-- .content -->
+
+
+	</div>
+	<!-- /#right-panel -->
+
+	<!-- Right Panel -->
+
+
+	<script src="js/vendor/jquery-2.1.4.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+	<script
+		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<script type="text/javascript">
+		$("#enable").click(function() {
+			alert("The text has been changed.");
+		});
+
+		// 	$('#enable').change(function() {
+		// 		    alert('ajksdh');
+		// 			if(this.checked) {
+		// 		    	$('#serverHost').prop('readonly', true);
+		// 		    	$('#serverPort').prop('readonly', true);
+		// 		    	$('#serverUserName').prop('readonly', true);
+		// 		    	$('#serverPasswrod').prop('readonly', true);
+		// 		    } else {
+		// 		    	$('#serverHost').prop('readonly', false);
+		// 		    	$('#serverPort').prop('readonly', false);
+		// 		    	$('#serverUserName').prop('readonly', false);
+		// 		    	$('#serverPasswrod').prop('readonly', false);
+		// 		    }
+		// 		});
+	</script>
+
+</body>
+</html>
