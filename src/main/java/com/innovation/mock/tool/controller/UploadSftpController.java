@@ -19,7 +19,7 @@ import com.jcraft.jsch.SftpException;
 @Controller
 public class UploadSftpController {
 
-	public static void uploadFile(String fullPath, FtpInfo info) throws IOException {
+	public static void uploadFile(String desFolder, FtpInfo info) throws IOException {
 		JSch ssh = new JSch();
 		ChannelSftp sftp = null;
 		Session session = null;
@@ -37,7 +37,7 @@ public class UploadSftpController {
 			sftp = (ChannelSftp) session.openChannel("sftp");
 			sftp.connect();
 
-			sftp.put(new FileInputStream(fileNeedUploaded),	fullPath + fileNeedUploaded.getName(), ChannelSftp.OVERWRITE);
+			sftp.put(new FileInputStream(fileNeedUploaded),	desFolder + File.separator +fileNeedUploaded.getName(), ChannelSftp.OVERWRITE);
 
 		} catch (JSchException e) {
 			// Nothing

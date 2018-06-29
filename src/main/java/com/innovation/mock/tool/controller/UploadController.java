@@ -25,13 +25,7 @@ import com.innovation.mock.tool.entity.ServerProductConfig;
 @Controller
 public class UploadController {
 
-	@Value("${disFolder}")
-	private String UPLOADED_FOLDER;
-
-	@Value("${SftpDisFolder}")
-	private String SFTP_DIS_FOLDER;
-
-	@Value(value = "sourceFile")
+	@Value("${sourceFile}")
 	private String sourceFilePath;
 	
 	@Autowired
@@ -49,9 +43,9 @@ public class UploadController {
 		if (serverProductOptional.isPresent()) {
 			if (!serverProductOptional.get().getName().contains("local")) {
 				FtpInfo ftpInfo = new FtpInfo(serverProductOptional.get().getHost(), Integer.valueOf(serverProductOptional.get().getSshPort()));
-				UploadSftpController.uploadFile(SFTP_DIS_FOLDER, ftpInfo);
+				UploadSftpController.uploadFile(serverProductOptional.get().getDisFolder(), ftpInfo);
 			} else {
-				String newFilePath = buildNewFilePath(metadata, file);
+				String newFilePath = buildNewFilePath(metadata, serverProductOptional.get().getDisFolder(), file);
 				try (FileChannel sourceChannel = new FileInputStream(file).getChannel();
 						FileChannel destChannel = new FileOutputStream(new File(newFilePath)).getChannel();) {
 					destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
@@ -65,7 +59,7 @@ public class UploadController {
 		return "index";
 	}
 
-	private String buildNewFilePath(Metadata metadata, File file) {
-		return UPLOADED_FOLDER + File.separator + file.getName().replaceAll(Constants.ORIGIN_TRANSACTION_ID, metadata.getRequest().getCob_id() + "-" + metadata.getRequest().getAccountHolder());
+	private String buildNewFilePath(Metadata metadata, String desFolder, File file) {
+		return desFolder + File.separator + file.getName().replaceAll(Constants.ORIGIN_TRANSACTION_ID, metadata.getRequest().getCob_id() + "-" + metadata.getRequest().getAccountHolder());
 	}
 }

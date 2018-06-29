@@ -7,6 +7,7 @@ import org.apache.commons.net.util.Base64;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.innovation.mock.tool.entity.Constants;
 import com.innovation.mock.tool.entity.Metadata;
 import com.innovation.mock.tool.entity.Server;
@@ -38,7 +38,11 @@ public class WebUIController {
 	@Autowired
 	private ServerProductConfig serverProductConfig;
 	
-	private ObjectMapper mapper = new ObjectMapper();
+	@Value("${metadata.server.username}")
+	private String userName;
+	
+	@Value("${metadata.server.password}")
+	private String password;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = "text/html")
 	public String index(Model model) throws JsonGenerationException, JsonMappingException, IOException {
@@ -50,29 +54,12 @@ public class WebUIController {
 	
 	@RequestMapping(value="/sendRequest", method = RequestMethod.POST)
 	public String updateMetadata(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) throws JsonProcessingException {
-		WebidResults results = new WebidResults();
-		results.setWebid_result(metadata.getRequest());
-		String json = mapper.writeValueAsString(results);
-		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-		//Authentication
-		String plainCreds = "makube:1234";
-		byte[] plainCredsBytes = plainCreds.getBytes();
-		byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
-		String base64Creds = new String(base64CredsBytes);
-		headers.add("Authorization", "Basic " + base64Creds);
-
-		//Build request
-		MultiValueMap<String, String> parts = new LinkedMultiValueMap<String, String>();
-        parts.add("webid_response", json);
-        parts.add("your_transaction_id", metadata.getRequest().getTransaction_id());
-        parts.add("webid_action_id", metadata.getRequest().getWebid_action_id());
-        parts.add("webid_confirmed", metadata.getRequest().isConfirmed() ? "true" : "false");
-        parts.add("webid_doc_signed", "");
-        parts.add("webid_server_timestamp", "362054604");
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String,String>>(parts, headers);
+		headers.add("Authorization", "Basic " + buildAuthenticationHeader());
+		String webIdResponseJson = buildJsonforWebIdResponse(metadata);
+		
+		HttpEntity<MultiValueMap<String, String>> request = buildRequestInformation(metadata, webIdResponseJson, headers);
         new RestTemplate().postForObject(metadata.getServer().buildURL() , request, String.class);
 		
         model.addAttribute(Constants.METADATA, metadata);
@@ -106,4 +93,28 @@ public class WebUIController {
 		model.addAttribute(Constants.REQUEST_BODY, metadata.getRequest().toRequestBody());
         return "index";
     }
+	
+	private String buildJsonforWebIdResponse(Metadata metadata) throws JsonProcessingException {
+		return new WebidResults(metadata.getRequest()).toJson();
+	}
+
+	private HttpEntity<MultiValueMap<String, String>> buildRequestInformation(Metadata metadata, String json, HttpHeaders headers) {
+		MultiValueMap<String, String> parts = new LinkedMultiValueMap<String, String>();
+        parts.add("webid_response", json);
+        parts.add("your_transaction_id", metadata.getRequest().getTransaction_id());
+        parts.add("webid_action_id", metadata.getRequest().getWebid_action_id());
+        parts.add("webid_confirmed", metadata.getRequest().isConfirmed() ? "true" : "false");
+        parts.add("webid_doc_signed", "");
+        parts.add("webid_server_timestamp", "362054604");
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String,String>>(parts, headers);
+		return request;
+	}
+
+	private String buildAuthenticationHeader() {
+		String plainCreds = userName + ":" + password;
+		byte[] plainCredsBytes = plainCreds.getBytes();
+		byte[] base64CredsBytes = Base64.encodeBase64(plainCredsBytes);
+		String base64Creds = new String(base64CredsBytes);
+		return base64Creds;
+	}
 }

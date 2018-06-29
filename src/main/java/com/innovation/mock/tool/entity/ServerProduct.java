@@ -1,7 +1,6 @@
 package com.innovation.mock.tool.entity;
 
 public class ServerProduct {
-
 	private String name;
 	private String host;
 	private String port;

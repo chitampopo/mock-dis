@@ -3,7 +3,6 @@ package com.innovation.mock.tool.entity;
 import com.innovation.mock.tool.util.UrlCreator;
 
 public class Server {
-
 	private String project;
 	private String serverType;
 	private String host;
@@ -86,7 +85,7 @@ public class Server {
 	
 	public String buildRequestHeader() {
 		String url = buildURL();
-		String authentication = this.username + "@" + this.password;
+		String authentication = this.username + ":" + this.password;
 		return String.format("POST %s \n %s", url, authentication);
 	}
 	

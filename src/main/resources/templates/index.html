@@ -1,18 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Mock DIS Tool</title>
     <meta name="description" content="Mock DIS Tool">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
-
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -23,41 +17,26 @@
 	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 	<script src="js/vendor/jquery-2.1.4.min.js"></script>
-	
 </head>
 <body>
-        <!-- Left Panel -->
-
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
-
             <div class="navbar-header">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="./"><img src="images/Swisscom.jpg" alt="Logo"></a>
             </div>
-
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Compose Request </a>
-                    </li>
-                    <li>
-                        <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>History </a>
-                    </li>
-                    
+                    <li><a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Compose Request </a></li>
+                    <li><a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>History </a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside><!-- /#left-panel -->
 
-    <!-- Left Panel -->
-
-    <!-- Right Panel -->
-
     <div id="right-panel" class="right-panel">
-
         <div class="breadcrumbs">
             <div class="col-sm-4">
                 <div class="page-header float-left">
@@ -69,239 +48,232 @@
         </div>
 
         <div class="content mt-3">
-            <div class="animated fadeIn">
-                <div class="row">
-                  <div class="col-lg-6">
+			<div class="animated fadeIn">
+				<div class="row">
+                	<div class="col-lg-6">
                     <div class="card">
-                      <div class="card-header">
-                        <strong>Compose DIS Request</strong>
-                      </div>
-                      <div class="card-body card-block">
-                        <form action="#" th:object="${metadata}" method="post" class="form-horizontal" th:action="@{/updateRequest}" >
+                    	<div class="card-header"><strong>Compose DIS Request</strong></div>
+                      	<div class="card-body card-block">
+                        	<form action="#" th:object="${metadata}" method="post" class="form-horizontal" th:action="@{/updateRequest}" >
+                            	<input type="hidden" th:field="*{server.host}">
+                          		<input type="hidden" th:field="*{server.port}">
+                          		<input type="hidden" th:field="*{server.context}">
+                          		<input type="hidden" th:field="*{server.application}">
+                          		<input type="hidden" th:field="*{server.username}">
+                          		<input type="hidden" th:field="*{server.password}">
                           
-                          <input type="hidden" th:field="*{server.host}">
-                          <input type="hidden" th:field="*{server.port}">
-                          <input type="hidden" th:field="*{server.context}">
-                          <input type="hidden" th:field="*{server.application}">
-                          <input type="hidden" th:field="*{server.username}">
-                          <input type="hidden" th:field="*{server.password}">
+	                          	<div class="row">
+	                            	<div class="col-6">
+	                                	<div class="form-group">
+	                                    	<label for="serverType">Confirmed result</label>
+										    <select class="form-control" id="serverType" th:field="*{request.confirmed}">
+										    	<option value="1">Successful</option>
+										    	<option value="0">Failed</option>
+										    </select>
+	                                  	</div>
+	                              	</div>
+	                              	<div class="col-6">
+	                                	<label for="x_card_code" class="control-label mb-1">WebID Action ID</label>
+	                                  	<div class="input-group">
+	                                    	<input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control" th:field="*{request.webid_action_id}">
+	                                  	</div>
+	                              	</div>
+	                          	</div>
+	                          	
+	                          	<div class="row">
+	                            	<div class="col-6">
+	                                	<label for="x_card_code" class="control-label mb-1">COB ID</label>
+	                                  	<div class="form-group">
+	                                    	<input type="text" id="text-input" name="text-input" placeholder="COB000001" class="form-control" th:field="*{request.cob_id}">
+	                                  	</div>
+	                              	</div>
+	                              	<div class="col-6">
+	                                	<div class="form-group">
+	                                    	<label for="cc-exp" class="control-label mb-1">Account Holder</label>
+	                                      	<select name="select" id="select" class="form-control" th:field="*{request.accountHolder}">
+			                                	<option value="0">Account Holder 1</option>
+			                                	<option value="1">Account Holder 2</option>
+			                              	</select>
+	                                  	</div>
+	                              	</div>
+	                          	</div>
                           
-                          <div class="row">
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <label for="serverType">Confirmed result</label>
-									    <select class="form-control" id="serverType" th:field="*{request.confirmed}">
-									      <option value="1">Successful</option>
-									      <option value="0">Failed</option>
-									    </select>
-                                  </div>
-                              </div>
-                              <div class="col-6">
-                                  <label for="x_card_code" class="control-label mb-1">WebID Action ID</label>
-                                  <div class="input-group">
-                                      <input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control" th:field="*{request.webid_action_id}">
-                                  </div>
-                              </div>
-                          </div>
+                          		<div class="row">
+                              		<div class="col-6">
+	                                  	<div class="form-group">
+	                                    	<label for="cc-exp" class="control-label mb-1">First name</label>
+	                                      	<input type="text" id="firstname" name="firstname" placeholder="First Name" class="form-control" th:field="*{request.user_data.firstname}">
+	                                  	</div>
+	                              	</div>
+	                              	<div class="col-6">
+	                                  	<label for="x_card_code" class="control-label mb-1">Last name</label>
+	                                  	<div class="input-group">
+	                                      	<input type="text" id="lastname" name="lastname" placeholder="Last Name" class="form-control" th:field="*{request.user_data.lastname}">
+	                                  	</div>
+	                              	</div>
+                          		</div>
                           
-                          <div class="row">
-                               <div class="col-6">
-                                  <label for="x_card_code" class="control-label mb-1">COB ID</label>
-                                  <div class="form-group">
-                                      <input type="text" id="text-input" name="text-input" placeholder="COB000001" class="form-control" th:field="*{request.cob_id}">
-                                  </div>
-                              </div>
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <label for="cc-exp" class="control-label mb-1">Account Holder</label>
-                                      <select name="select" id="select" class="form-control" th:field="*{request.accountHolder}">
-		                                <option value="0">Account Holder 1</option>
-		                                <option value="1">Account Holder 2</option>
-		                              </select>
-                                  </div>
-                              </div>
-                          </div>
+	                          	<div class="row">
+	                              	<div class="col-6">
+	                                  	<div class="form-group">
+	                                      <a class="btn btn-link" data-toggle="collapse" href="#collapseRequest" role="button" aria-expanded="false" aria-controls="collapseRequest">
+										    Show/Hide advance options
+										  </a>
+	                                  	</div>
+	                              	</div>
+	                          	</div>
+	                          
+                       			<div id="collapseRequest" class="collapse">   
+		                          	<div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                      <label for="cc-exp" class="control-label mb-1">City</label>
+		                                      <input type="text" id="city" name="city" placeholder="Vessy" class="form-control" th:field="*{request.user_data.city}">
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<label for="x_card_code" class="control-label mb-1">Zip code</label>
+		                                  	<div class="input-group">
+		                                      	<input type="text" id="zip" name="zip" placeholder="1234" class="form-control" th:field="*{request.user_data.zip}">
+		                                  	</div>
+		                              	</div>
+		                          	</div>
                           
-                          <div class="row">
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <label for="cc-exp" class="control-label mb-1">First name</label>
-                                      <input type="text" id="firstname" name="firstname" placeholder="First Name" class="form-control" th:field="*{request.user_data.firstname}">
-                                  </div>
-                              </div>
-                              <div class="col-6">
-                                  <label for="x_card_code" class="control-label mb-1">Last name</label>
-                                  <div class="input-group">
-                                      <input type="text" id="lastname" name="lastname" placeholder="Last Name" class="form-control" th:field="*{request.user_data.lastname}">
-                                  </div>
-                              </div>
-                          </div>
+		                          	<div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                      	<label for="cc-exp" class="control-label mb-1">Street</label>
+		                                      	<input type="text" id="street" name="street" placeholder="Street" class="form-control" th:field="*{request.user_data.street}">
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<label for="x_card_code" class="control-label mb-1">Street number</label>
+		                                  	<div class="input-group">
+		                                      	<input type="text" id="streetnumber" name="streetnumber" placeholder="42" class="form-control" th:field="*{request.user_data.street_nr}">
+		                                  	</div>
+		                              	</div>
+		                          	</div>
                           
-                          <div class="row">
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <a class="btn btn-link" data-toggle="collapse" href="#collapseRequest" role="button" aria-expanded="false" aria-controls="collapseRequest">
-									    Show/Hide advance options
-									  </a>
-                                  </div>
-                              </div>
-                          </div>
+		                          	<div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                      	<label for="cc-exp" class="control-label mb-1">Date of birth</label>
+		                                      	<input type="text" id="dob" name="dob" placeholder="17.08.1990" class="form-control" th:field="*{request.user_data.dob}">
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<label for="x_card_code" class="control-label mb-1">Exhibition Authority</label>
+		                                  	<div class="input-group">
+		                                      	<input type="text" id="exhibitionauthority" name="exhibitionauthority" placeholder="MyAuthority" class="form-control" th:field="*{request.user_data_pass.exhibition_authority}">
+		                                  	</div>
+		                              	</div>
+		                          	</div>
                           
-                       <div id="collapseRequest" class="collapse">   
-                          <div class="row">
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <label for="cc-exp" class="control-label mb-1">City</label>
-                                      <input type="text" id="city" name="city" placeholder="Vessy" class="form-control" th:field="*{request.user_data.city}">
-                                  </div>
-                              </div>
-                              <div class="col-6">
-                                  <label for="x_card_code" class="control-label mb-1">Zip code</label>
-                                  <div class="input-group">
-                                      <input type="text" id="zip" name="zip" placeholder="1234" class="form-control" th:field="*{request.user_data.zip}">
-                                  </div>
-                              </div>
-                          </div>
+		                          	<div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                      	<label for="cc-exp" class="control-label mb-1">Expires Date</label>
+		                                      	<input type="text" id="expiresdate" name="expiresdate" placeholder="31.12.21" class="form-control" th:field="*{request.user_data_pass.expires_date}">
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<label for="x_card_code" class="control-label mb-1">Date of issue</label>
+		                                  	<div class="input-group">
+		                                      	<input type="text" id="dateofissue" name="dateofissue" placeholder="01.01.10" class="form-control" th:field="*{request.user_data_pass.date_of_issue}">
+		                                  	</div>
+		                              	</div>
+		                          	</div>
                           
-                          <div class="row">
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <label for="cc-exp" class="control-label mb-1">Street</label>
-                                      <input type="text" id="street" name="street" placeholder="Street" class="form-control" th:field="*{request.user_data.street}">
-                                  </div>
-                              </div>
-                              <div class="col-6">
-                                  <label for="x_card_code" class="control-label mb-1">Street number</label>
-                                  <div class="input-group">
-                                      <input type="text" id="streetnumber" name="streetnumber" placeholder="42" class="form-control" th:field="*{request.user_data.street_nr}">
-                                  </div>
-                              </div>
-                          </div>
+		                          	<div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                      	<label for="cc-exp" class="control-label mb-1">Pass number</label>
+		                                      	<input type="text" id="passnumber" name="passnumber" placeholder="987654321" class="form-control" th:field="*{request.user_data_pass.pass_nr}">
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<label for="x_card_code" class="control-label mb-1">Pass type</label>
+		                                  	<div class="input-group">
+		                                      	<input type="text" id="passtype" name="passtype" placeholder="Personalausweis" class="form-control" th:field="*{request.user_data_pass.pass_type}">
+		                                  	</div>
+		                              	</div>
+		                          	</div>
                           
-                          <div class="row">
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <label for="cc-exp" class="control-label mb-1">Date of birth</label>
-                                      <input type="text" id="dob" name="dob" placeholder="17.08.1990" class="form-control" th:field="*{request.user_data.dob}">
-                                  </div>
-                              </div>
-                              <div class="col-6">
-                                  <label for="x_card_code" class="control-label mb-1">Exhibition Authority</label>
-                                  <div class="input-group">
-                                      <input type="text" id="exhibitionauthority" name="exhibitionauthority" placeholder="MyAuthority" class="form-control" th:field="*{request.user_data_pass.exhibition_authority}">
-                                  </div>
-                              </div>
-                          </div>
+		                          	<div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                      	<label for="cc-exp" class="control-label mb-1">Birthplace</label>
+		                                      	<input type="text" id="birthplace" name="birthplace" placeholder="MyBirthplace" class="form-control" th:field="*{request.user_data_pass.birthplace}">
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<label for="x_card_code" class="control-label mb-1">Birth Name</label>
+		                                  	<div class="input-group">
+		                                      	<input type="text" id="birthname" name="birthname" placeholder="MyBirthname" class="form-control" th:field="*{request.user_data_pass.birthname}">
+		                                  	</div>
+		                              	</div>
+		                          	</div>
                           
-                          <div class="row">
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <label for="cc-exp" class="control-label mb-1">Expires Date</label>
-                                      <input type="text" id=""expiresdate"" name="expiresdate" placeholder="31.12.21" class="form-control" th:field="*{request.user_data_pass.expires_date}">
-                                  </div>
-                              </div>
-                              <div class="col-6">
-                                  <label for="x_card_code" class="control-label mb-1">Date of issue</label>
-                                  <div class="input-group">
-                                      <input type="text" id="dateofissue" name="dateofissue" placeholder="01.01.10" class="form-control" th:field="*{request.user_data_pass.date_of_issue}">
-                                  </div>
-                              </div>
-                          </div>
+		                          	<div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                      	<label for="cc-exp" class="control-label mb-1">Country Code</label>
+		                                      	<input type="text" id="country" name="country" placeholder="CH" class="form-control" th:field="*{request.user_data.country}">
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<label for="x_card_code" class="control-label mb-1">Nationality Code</label>
+		                                  	<div class="input-group">
+		                                      	<input type="text" id="nationality" name="nationality" placeholder="CH" class="form-control" th:field="*{request.user_data_pass.nationality}">
+		                                  	</div>
+		                             	</div>
+		                          	</div>
                           
-                          <div class="row">
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <label for="cc-exp" class="control-label mb-1">Pass number</label>
-                                      <input type="text" id=""passnumber"" name="passnumber" placeholder="987654321" class="form-control" th:field="*{request.user_data_pass.pass_nr}">
-                                  </div>
-                              </div>
-                              <div class="col-6">
-                                  <label for="x_card_code" class="control-label mb-1">Pass type</label>
-                                  <div class="input-group">
-                                      <input type="text" id="passtype" name="passtype" placeholder="Personalausweis" class="form-control" th:field="*{request.user_data_pass.pass_type}">
-                                  </div>
-                              </div>
-                          </div>
-                          
-                          <div class="row">
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <label for="cc-exp" class="control-label mb-1">Birthplace</label>
-                                      <input type="text" id="birthplace" name="birthplace" placeholder="MyBirthplace" class="form-control" th:field="*{request.user_data_pass.birthplace}">
-                                  </div>
-                              </div>
-                              <div class="col-6">
-                                  <label for="x_card_code" class="control-label mb-1">Birth Name</label>
-                                  <div class="input-group">
-                                      <input type="text" id="birthname" name="birthname" placeholder="MyBirthname" class="form-control" th:field="*{request.user_data_pass.birthname}">
-                                  </div>
-                              </div>
-                          </div>
-                          
-                          <div class="row">
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <label for="cc-exp" class="control-label mb-1">Country Code</label>
-                                      <input type="text" id="country" name="country" placeholder="CH" class="form-control" th:field="*{request.user_data.country}">
-                                  </div>
-                              </div>
-                              <div class="col-6">
-                                  <label for="x_card_code" class="control-label mb-1">Nationality Code</label>
-                                  <div class="input-group">
-                                      <input type="text" id="nationality" name="nationality" placeholder="CH" class="form-control" th:field="*{request.user_data_pass.nationality}">
-                                  </div>
-                              </div>
-                          </div>
-                          
-                          <div class="row">
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <label for="cc-exp" class="control-label mb-1">Call Center Data ID</label>
-                                      <input type="text" id="callCenterDataId" name="callCenterDataId" placeholder="null" class="form-control" th:field="*{request.callcenter_data.callcenter_data_id}">
-                                  </div>
-                              </div>
-                              <div class="col-6">
-                                  <label for="x_card_code" class="control-label mb-1">Call Center ID</label>
-                                  <div class="input-group">
-                                      <input type="text" id="callCenterId" name="callCenterId" placeholder="null" class="form-control" th:field="*{request.callcenter_data.callcenter_id}">
-                                  </div>
-                              </div>
-                          </div>
-                          
+		                          	<div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                      	<label for="cc-exp" class="control-label mb-1">Call Center Data ID</label>
+		                                      	<input type="text" id="callCenterDataId" name="callCenterDataId" placeholder="null" class="form-control" th:field="*{request.callcenter_data.callcenter_data_id}">
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<label for="x_card_code" class="control-label mb-1">Call Center ID</label>
+		                                  	<div class="input-group">
+		                                      	<input type="text" id="callCenterId" name="callCenterId" placeholder="null" class="form-control" th:field="*{request.callcenter_data.callcenter_id}">
+		                                  	</div>
+		                              	</div>
+		                          	</div>
+                     			</div><!-- end collapseRequest -->
+                        		<input type="submit" class="btn btn-primary btn-sm" value="Update Request">
+                       		</form>
                      	</div>
-                        <input type="submit" class="btn btn-primary btn-sm" value="Update Request">
-                       </form>
-                     </div>
                    </div>
                     
-                    <div class="card">
-                      <div class="card-header">
-                        <strong>Server Information</strong>
-                      </div>
-                      <div class="card-body card-block">
-                        	
-	                        <form action="#" th:object="${metadata}" method="post" class="form-horizontal" th:action="@{/updateServer}">
+                   	<div class="card">
+                   		<div class="card-header"><strong>Server Information</strong></div>
+                      	<div class="card-body card-block">
+	                    	<form action="#" th:object="${metadata}" method="post" class="form-horizontal" th:action="@{/updateServer}">
 	                        	<div class="row">
-	                              <div class="col-6">
-	                                  <div class="form-group">
-	                                      <label for="project">Project</label>
-										    <select class="form-control" id="project" th:field="*{server.project}">
-										      <option value="alpha">Alpha</option>
-										      <option value="acrevis">Acrevis</option>
+	                            	<div class="col-6">
+	                                	<div class="form-group">
+	                                    	<label for="project">Project</label>
+											<select class="form-control" id="project" th:field="*{server.project}">
+										    	<option value="alpha">Alpha</option>
+										    	<option value="acrevis">Acrevis</option>
 										    </select>
-	                                  </div>
-	                              </div>
-	                              <div class="col-6">
-	                                  <div class="form-group">
-	                                      <label for="serverType">Server</label>
+	                                  	</div>
+	                              	</div>
+	                              	<div class="col-6">
+	                                	<div class="form-group">
+	                                    	<label for="serverType">Server</label>
 										    <select class="form-control" id="serverType" th:field="*{server.serverType}">
-										      <option value="local">Local</option>
-										      <option value="dev">Dev</option>
-										      <option value="test">Test</option>
-										      <option value="quality">Quality</option>
+										    	<option value="local">Local</option>
+										      	<option value="dev">Dev</option>
+										      	<option value="test">Test</option>
+										      	<option value="quality">Quality</option>
 										    </select>
-	                                  </div>
-	                              </div>
+	                                  	</div>
+	                              	</div>
 	                         	</div> 
 	                        	<input type="hidden" th:field="*{request.confirmed}">
 	                        	<input type="hidden" th:field="*{request.transaction_id}">
@@ -327,228 +299,191 @@
 	                        	<input type="hidden" th:field="*{request.callcenter_data.callcenter_data_id}">
 	                        	<input type="hidden" th:field="*{request.callcenter_data.callcenter_id}">
 	                        	
-	                        <div class="row">
-                              <div class="col-6">
-                                  <div class="form-group">
-                                      <a class="btn btn-link" data-toggle="collapse" href="#collapseServer" role="button" aria-expanded="false" aria-controls="collapseServer">
-									    Show/Hide advance options
-									  </a>
-                                  </div>
-                              </div>
-                         	</div>	
-                       		<div id="collapseServer" class="collapse">  
-	                        	<div class="row">
-	                              <div class="col-6">
-	                                  <div class="form-group">
-	                                      <label for="cc-exp" class="control-label mb-1">Host</label>
-	                                      <input type="text" id="host" name="host" placeholder="127.0.0.1" class="form-control" th:field="*{server.host}"> 
-	                                  </div>
-	                              </div>
-	                              <div class="col-6">
-	                                  <label for="x_card_code" class="control-label mb-1">Port</label>
-	                                  <div class="input-group">
-	                                      <input type="text" id="port" name="port" placeholder="8081" class="form-control" th:field="*{server.port}">
-	                                  </div>
-	                              </div>
-	                         	 </div>
-	                         	 
-	                         	 <div class="row">
-	                              <div class="col-6">
-	                                  <div class="form-group">
-	                                      <label for="cc-exp" class="control-label mb-1">Context</label>
-	                                      <input type="text" id="context" name="context" placeholder="ivy" class="form-control" th:field="*{server.context}">
-	                                  </div>
-	                              </div>
-	                              <div class="col-6">
-	                                  <label for="x_card_code" class="control-label mb-1">Application</label>
-	                                  <div class="input-group">
-	                                      <input type="text" id="application" name="application" placeholder="designer" class="form-control" th:field="*{server.application}">
-	                                  </div>
-	                              </div>
-	                         	 </div>
-	                        
-	                           <div class="row">
-	                              <div class="col-6">
-	                                  <div class="form-group">
-	                                      <label for="cc-exp" class="control-label mb-1">Username</label>
-	                                      <input type=text id="username" name="username" placeholder="username" class="form-control" th:field="*{server.username}">
-	                                  </div>
-	                              </div>
-	                              <div class="col-6">
-	                                  <label for="x_card_code" class="control-label mb-1">Password</label>
-	                                  <div class="input-group">
-	                                      <input type="text" id="password" name="password" placeholder="password" class="form-control" th:field="*{server.password}">
-	                                  </div>
-	                              </div>
-		                      </div>
-                       		</div> <!-- end collapse server -->
-			                <input type="submit" class="btn btn-primary btn-sm" value="Update Request">
-                       </form>
-                      </div>
-                    </div>
-                  </div>
+		                        <div class="row">
+	                              	<div class="col-6">
+	                                  	<div class="form-group">
+	                                      	<a class="btn btn-link" data-toggle="collapse" href="#collapseServer" role="button" aria-expanded="false" aria-controls="collapseServer">Show/Hide advance options</a>
+	                                  	</div>
+	                              	</div>
+	                         	</div>	
+	                       		<div id="collapseServer" class="collapse">  
+		                        	<div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                      	<label for="cc-exp" class="control-label mb-1">Host</label>
+		                                      	<input type="text" id="host" name="host" placeholder="127.0.0.1" class="form-control" th:field="*{server.host}"> 
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<label for="x_card_code" class="control-label mb-1">Port</label>
+		                                  	<div class="input-group">
+		                                      	<input type="text" id="port" name="port" placeholder="8081" class="form-control" th:field="*{server.port}">
+		                                  	</div>
+		                              	</div>
+		                         	 </div>
+		                         	 
+		                         	 <div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                      	<label for="cc-exp" class="control-label mb-1">Context</label>
+		                                      	<input type="text" id="context" name="context" placeholder="ivy" class="form-control" th:field="*{server.context}">
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<label for="x_card_code" class="control-label mb-1">Application</label>
+		                                  	<div class="input-group">
+		                                     	 <input type="text" id="application" name="application" placeholder="designer" class="form-control" th:field="*{server.application}">
+		                                  	</div>
+		                              	</div>
+		                         	 </div>
+		                        
+		                           	<div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                      	<label for="cc-exp" class="control-label mb-1">Username</label>
+		                                      	<input type=text id="username" name="username" placeholder="username" class="form-control" th:field="*{server.username}">
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<label for="x_card_code" class="control-label mb-1">Password</label>
+		                                  	<div class="input-group">
+		                                      	<input type="text" id="password" name="password" placeholder="password" class="form-control" th:field="*{server.password}">
+		                                  	</div>
+		                              	</div>
+			                      	</div>
+	                       		</div> <!-- end collapse server -->
+			               		<input type="submit" class="btn btn-primary btn-sm" value="Update Request">
+                       		</form>
+                      	</div>
+                   	</div>
+                  	</div>
 
-                  <div class="col-lg-6">
-                    
+                  	<div class="col-lg-6">
                     <div class="card">
-                      <div class="card-header">
-                        <strong>Request Review</strong>
-                      </div>
+                      	<div class="card-header"><strong>Request Review</strong></div>
                         <form method="post" class="form-horizontal" action="#" th:action="@{/sendRequest}" th:object="${metadata}">
-                          <div class="card-body card-block">
-		                      <div class="row">
-	                              <div class="col-6">
-	                                  <div class="form-group">
-	                                      <a class="btn btn-link" data-toggle="collapse" href="#collapseRequestReview" role="button" aria-expanded="false" aria-controls="collapseRequestReview">
-										    Show/Hide advance options
-										  </a>
-	                                  </div>
-	                              </div>
-		                       </div>
-		                       <div id="collapseRequestReview" class="collapse">
-		                       	  <input type="hidden" th:field="*{request.confirmed}">
-	                        	<input type="hidden" th:field="*{request.transaction_id}">
-	                        	<input type="hidden" th:field="*{request.cob_id}">
-	                        	<input type="hidden" th:field="*{request.accountHolder}">
-	                        	<input type="hidden" th:field="*{request.webid_action_id}">
-	                        	<input type="hidden" th:field="*{request.user_data.firstname}">
-	                        	<input type="hidden" th:field="*{request.user_data.lastname}">
-	                        	<input type="hidden" th:field="*{request.user_data.city}">
-	                        	<input type="hidden" th:field="*{request.user_data.street}">
-	                        	<input type="hidden" th:field="*{request.user_data.street_nr}">
-	                        	<input type="hidden" th:field="*{request.user_data.zip}">
-	                        	<input type="hidden" th:field="*{request.user_data.country}">
-	                        	<input type="hidden" th:field="*{request.user_data.dob}">
-	                        	<input type="hidden" th:field="*{request.user_data_pass.exhibition_authority}">
-	                        	<input type="hidden" th:field="*{request.user_data_pass.expires_date}">
-	                        	<input type="hidden" th:field="*{request.user_data_pass.date_of_issue}">
-	                        	<input type="hidden" th:field="*{request.user_data_pass.pass_nr}">
-	                        	<input type="hidden" th:field="*{request.user_data_pass.pass_type}">
-	                        	<input type="hidden" th:field="*{request.user_data_pass.birthplace}">
-	                        	<input type="hidden" th:field="*{request.user_data_pass.birthname}">
-	                        	<input type="hidden" th:field="*{request.user_data_pass.nationality}">
-	                        	<input type="hidden" th:field="*{request.callcenter_data.callcenter_data_id}">
-	                        	<input type="hidden" th:field="*{request.callcenter_data.callcenter_id}">
-		                          <input type="hidden" th:field="*{server.host}">
-		                          <input type="hidden" th:field="*{server.port}">
-		                          <input type="hidden" th:field="*{server.context}">
-		                          <input type="hidden" th:field="*{server.application}">
-		                          <input type="hidden" th:field="*{server.username}">
-		                          <input type="hidden" th:field="*{server.password}">
-		                          <input type="hidden" th:field="*{server.project}">
-		                          <input type="hidden" th:field="*{server.serverType}">
-		                          <div class="row form-group">
-		                            <div class="col-12 col-md-12">
-		                            	<textarea name="textarea-input" id="header" rows="3" placeholder="Content..." class="form-control" th:text="${requestHeader}"></textarea>
-		                            </div>
-		                          </div>
-		                          <div class="row form-group">
-		                            <div class="col-12 col-md-12">
-		                            	<textarea name="textarea-input" id="request-body" rows="30" placeholder="Content..." class="form-control" th:text="${requestJson}"></textarea>
-		                            </div>
-		                          </div>
-	                          </div>
-	                        <input type="submit" class="btn btn-danger btn-lg" value="Submit Request - Step #1">
-                      	  </div>
+                          	<div class="card-body card-block">
+		                      	<div class="row">
+	                              	<div class="col-6">
+	                                  	<div class="form-group">
+	                                      	<a class="btn btn-link" data-toggle="collapse" href="#collapseRequestReview" role="button" aria-expanded="false" aria-controls="collapseRequestReview">Show/Hide advance options</a>
+	                                  	</div>
+	                              	</div>
+		                       	</div>
+		                       	<div id="collapseRequestReview" class="collapse">
+			                       	<input type="hidden" th:field="*{request.confirmed}">
+		                        	<input type="hidden" th:field="*{request.transaction_id}">
+		                        	<input type="hidden" th:field="*{request.cob_id}">
+		                        	<input type="hidden" th:field="*{request.accountHolder}">
+		                        	<input type="hidden" th:field="*{request.webid_action_id}">
+		                        	<input type="hidden" th:field="*{request.user_data.firstname}">
+		                        	<input type="hidden" th:field="*{request.user_data.lastname}">
+		                        	<input type="hidden" th:field="*{request.user_data.city}">
+		                        	<input type="hidden" th:field="*{request.user_data.street}">
+		                        	<input type="hidden" th:field="*{request.user_data.street_nr}">
+		                        	<input type="hidden" th:field="*{request.user_data.zip}">
+		                        	<input type="hidden" th:field="*{request.user_data.country}">
+		                        	<input type="hidden" th:field="*{request.user_data.dob}">
+		                        	<input type="hidden" th:field="*{request.user_data_pass.exhibition_authority}">
+		                        	<input type="hidden" th:field="*{request.user_data_pass.expires_date}">
+		                        	<input type="hidden" th:field="*{request.user_data_pass.date_of_issue}">
+		                        	<input type="hidden" th:field="*{request.user_data_pass.pass_nr}">
+		                        	<input type="hidden" th:field="*{request.user_data_pass.pass_type}">
+		                        	<input type="hidden" th:field="*{request.user_data_pass.birthplace}">
+		                        	<input type="hidden" th:field="*{request.user_data_pass.birthname}">
+		                        	<input type="hidden" th:field="*{request.user_data_pass.nationality}">
+		                        	<input type="hidden" th:field="*{request.callcenter_data.callcenter_data_id}">
+		                        	<input type="hidden" th:field="*{request.callcenter_data.callcenter_id}">
+			                        <input type="hidden" th:field="*{server.host}">
+			                        <input type="hidden" th:field="*{server.port}">
+			                        <input type="hidden" th:field="*{server.context}">
+			                        <input type="hidden" th:field="*{server.application}">
+			                        <input type="hidden" th:field="*{server.username}">
+			                        <input type="hidden" th:field="*{server.password}">
+			                        <input type="hidden" th:field="*{server.project}">
+			                        <input type="hidden" th:field="*{server.serverType}">
+			                        <div class="row form-group">
+			                        	<div class="col-12 col-md-12">
+			                            	<textarea name="textarea-input" id="header" rows="3" placeholder="Content..." class="form-control" th:text="${requestHeader}"></textarea>
+			                            </div>
+			                        </div>
+			                        <div class="row form-group">
+			                        	<div class="col-12 col-md-12">
+			                            	<textarea name="textarea-input" id="request-body" rows="30" placeholder="Content..." class="form-control" th:text="${requestJson}"></textarea>
+			                            </div>
+			                        </div>
+	                          	</div>
+	                        	<input type="submit" class="btn btn-danger btn-lg" value="Submit Request - Step #1">
+                      	  	</div>
                         </form>
                     </div>
                     
                     <div class="card">
-                      <div class="card-header">
-                        <strong>Upload file</strong>
-                      </div>
-                      <div class="card-body card-block">
-                        <form method="post" class="form-horizontal" action="#" th:action="@{/uploadFile}" th:object="${metadata}">
-                          <input type="hidden" th:field="*{server.host}">
-		                          <input type="hidden" th:field="*{server.port}">
-		                          <input type="hidden" th:field="*{server.context}">
-		                          <input type="hidden" th:field="*{server.application}">
-		                          <input type="hidden" th:field="*{server.username}">
-		                          <input type="hidden" th:field="*{server.password}">
-		                          <input type="hidden" th:field="*{server.project}">
-		                          <input type="hidden" th:field="*{server.serverType}">
-		                          <input type="hidden" th:field="*{request.cob_id}">
-	                        	<input type="hidden" th:field="*{request.accountHolder}">
-                          <div class="row">
-                             <div class="col-6">
-                                 <div class="form-group">
-                                     <a class="btn btn-link" data-toggle="collapse" href="#collapseUpload" role="button" aria-expanded="false" aria-controls="collapseUpload">
-								    Show/Hide advance options
-								  </a>
-                                 </div>
-                             </div>
-                         </div>
-                         <div id="collapseUpload" class="collapse">   
-	                          <div class="row">
-	                            <div class="col-6">
-	                                <div class="form-group">
-	                                    <label for="serverHost" class="control-label mb-1">Host</label>
-	                                    <input type="text" id="serverHost" name="host" placeholder="127.0.0.1" class="form-control" > 
-	                                </div>
-	                            </div>
-	                            <div class="col-6">
-	                                <label for="serverPort" class="control-label mb-1">Port</label>
-	                                <div class="input-group">
-	                                    <input type="text" id="serverPort" name="port" placeholder="8081" class="form-control" >
-	                                </div>
-	                            </div>
-	                       	 </div>
-	                         	 
-	                         <div class="row">
-	                              <div class="col-6">
-	                                  <div class="form-group">
-	                                      <label for="serverUserName" class="control-label mb-1">Username</label>
-	                                      <input type=text id="serverUserName" name="username" placeholder="username" class="form-control" >
-	                                  </div>
-	                              </div>
-	                              <div class="col-6">
-	                                  <label for="serverPassword" class="control-label mb-1">Password</label>
-	                                  <div class="input-group">
-	                                      <input type="text" id="serverPassword" name="password" placeholder="password" class="form-control">
-	                                  </div>
-	                              </div>
-	                         </div>
-                      	 	</div>
-	                    <input type="submit" class="btn btn-danger btn-lg" value="Submit File - Step #2">
-                        </form>
-                      </div>
+                      	<div class="card-header"><strong>Upload file</strong></div>
+                      	<div class="card-body card-block">
+	                        <form method="post" class="form-horizontal" action="#" th:action="@{/uploadFile}" th:object="${metadata}">
+	                          	<input type="hidden" th:field="*{server.host}">
+	                          	<input type="hidden" th:field="*{server.port}">
+	                          	<input type="hidden" th:field="*{server.context}">
+	                          	<input type="hidden" th:field="*{server.application}">
+	                          	<input type="hidden" th:field="*{server.username}">
+	                          	<input type="hidden" th:field="*{server.password}">
+	                          	<input type="hidden" th:field="*{server.project}">
+	                          	<input type="hidden" th:field="*{server.serverType}">
+	                          	<input type="hidden" th:field="*{request.cob_id}">
+		                        <input type="hidden" th:field="*{request.accountHolder}">
+	                          	<div class="row">
+	                            	<div class="col-6">
+	                                	<div class="form-group">
+	                                    	<a class="btn btn-link" data-toggle="collapse" href="#collapseUpload" role="button" aria-expanded="false" aria-controls="collapseUpload">Show/Hide advance options</a>
+	                                 	</div>
+	                             	</div>
+	                         	</div>
+	                         	<div id="collapseUpload" class="collapse">   
+		                        	<div class="row">
+		                            	<div class="col-6">
+		                                	<div class="form-group">
+		                                    	<label for="serverHost" class="control-label mb-1">Host</label>
+		                                    	<input type="text" id="serverHost" name="host" placeholder="127.0.0.1" class="form-control" > 
+		                                	</div>
+		                            	</div>
+		                            	<div class="col-6">
+		                                	<label for="serverPort" class="control-label mb-1">Port</label>
+		                                	<div class="input-group">
+		                                    	<input type="text" id="serverPort" name="port" placeholder="8081" class="form-control" >
+		                                	</div>
+		                            	</div>
+		                       	 	</div>
+		                         	 
+		                         	<div class="row">
+		                            	<div class="col-6">
+		                                	<div class="form-group">
+		                                    	<label for="serverUserName" class="control-label mb-1">Username</label>
+		                                      	<input type=text id="serverUserName" name="username" placeholder="username" class="form-control" >
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                	<label for="serverPassword" class="control-label mb-1">Password</label>
+		                                  	<div class="input-group">
+		                                    	<input type="text" id="serverPassword" name="password" placeholder="password" class="form-control">
+		                                  	</div>
+		                              	</div>
+		                         	</div>
+	                      	 	</div>
+		                    	<input type="submit" class="btn btn-danger btn-lg" value="Submit File - Step #2">
+	                        </form>
+                    	</div>
                     </div>
-                  </div>
-                </div>
-            </div><!-- .animated -->
-        </div><!-- .content -->
-
-
-    </div><!-- /#right-panel -->
-
-    <!-- Right Panel -->
-
+				</div>
+				</div>
+		</div><!-- .animated -->
+		</div><!-- .content -->
+	</div><!-- /#right-panel -->
 
     <script src="js/vendor/jquery-2.1.4.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
 	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-	<script type="text/javascript">
-	$("#enable").click(function(){
-	    alert("The text has been changed.");
-	});	
-	
-// 	$('#enable').change(function() {
-// 		    alert('ajksdh');
-// 			if(this.checked) {
-// 		    	$('#serverHost').prop('readonly', true);
-// 		    	$('#serverPort').prop('readonly', true);
-// 		    	$('#serverUserName').prop('readonly', true);
-// 		    	$('#serverPasswrod').prop('readonly', true);
-// 		    } else {
-// 		    	$('#serverHost').prop('readonly', false);
-// 		    	$('#serverPort').prop('readonly', false);
-// 		    	$('#serverUserName').prop('readonly', false);
-// 		    	$('#serverPasswrod').prop('readonly', false);
-// 		    }
-// 		});
-	</script>
-	
 </body>
 </html>
