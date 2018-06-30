@@ -95,9 +95,7 @@
 	                          	<div class="row">
 	                              	<div class="col-6">
 	                                  	<div class="form-group">
-	                                      <a class="btn btn-link" data-toggle="collapse" href="#collapseRequest" role="button" aria-expanded="false" aria-controls="collapseRequest">
-										    Show/Hide advance options
-										  </a>
+	                                      <a class="btn btn-link" data-toggle="collapse" href="#collapseRequest" role="button" aria-expanded="false" aria-controls="collapseRequest">Show/Hide advance options</a>
 	                                  	</div>
 	                              	</div>
 	                          	</div>
@@ -208,7 +206,7 @@
 
                   	<div class="col-lg-6">
 	                    <div class="card">
-	                      	<div class="card-header"><strong>Request Review</strong></div>
+	                      	<div class="card-header"><strong>Request</strong></div>
 	                        <form method="post" class="form-horizontal" action="#" th:action="@{/sendRequest}" th:object="${metadata}">
 	                          	<div class="card-body card-block">
 			                      	<div class="row">
@@ -224,12 +222,12 @@
 			                       		
 				                        <div class="row form-group">
 				                        	<div class="col-12 col-md-12">
-				                            	<textarea name="textarea-input" id="header" rows="3" placeholder="Content..." class="form-control" th:text="${metadata.server.buildRequestHeader()}"></textarea>
+				                            	<textarea name="textarea-input" id="header" rows="3" class="form-control" th:text="${metadata.server.buildRequestHeader()}"></textarea>
 				                            </div>
 				                        </div>
 				                        <div class="row form-group">
 				                        	<div class="col-12 col-md-12">
-				                            	<textarea name="textarea-input" id="request-body" rows="30" placeholder="Content..." class="form-control" th:text="${metadata.request.toRequestBody()}"></textarea>
+				                            	<textarea name="textarea-input" id="request-body" rows="30" class="form-control" th:text="${metadata.request.toRequestBody()}"></textarea>
 				                            </div>
 				                        </div>
 		                          	</div>
@@ -245,6 +243,17 @@
 		                          	<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
 			                       	<div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
 			                    	<input type="submit" class="btn btn-danger btn-lg" value="Submit File - Step #2">
+		                        </form>
+	                    	</div>
+	                    </div>
+	                    
+	                    <div class="card">
+	                      	<div class="card-header"><strong>Check file</strong></div>
+	                      	<div class="card-body card-block">
+		                        <form method="post" class="form-horizontal" action="#" th:action="@{/uploadFile}" th:object="${metadata}">
+		                          	<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
+			                       	<div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
+			                    	<input type="submit" class="btn btn-danger btn-lg" value="Submit File - Step #3">
 		                        </form>
 	                    	</div>
 	                    </div>

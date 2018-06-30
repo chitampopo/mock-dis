@@ -1,4 +1,4 @@
-package com.innovation.mock.tool.entity;
+package com.innovation.mock.tool.util;
 
 public class Constants {
 
@@ -6,5 +6,6 @@ public class Constants {
 	public final static String REQUEST_HEADER = "requestHeader";
 	public final static String REQUEST_BODY = "requestJson";
 	public final static String ORIGIN_TRANSACTION_ID = "COB000117-0";
+	public static final String MAIN_PAGE = "index";
 	
 }

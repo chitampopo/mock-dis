@@ -11,6 +11,8 @@ public class Server {
 	private String application;
 	private String username;
 	private String password;
+	private String sshUsername;
+	private String sshPassword;
 
 	public Server() {}
 
@@ -83,6 +85,23 @@ public class Server {
 	}
 
 	
+	
+	public String getSshUsername() {
+		return sshUsername;
+	}
+
+	public void setSshUsername(String sshUsername) {
+		this.sshUsername = sshUsername;
+	}
+
+	public String getSshPassword() {
+		return sshPassword;
+	}
+
+	public void setSshPassword(String sshPassword) {
+		this.sshPassword = sshPassword;
+	}
+
 	public String buildRequestHeader() {
 		String url = buildURL();
 		String authentication = this.username + ":" + this.password;

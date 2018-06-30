@@ -1,10 +1,12 @@
 package com.innovation.mock.tool.entity;
 
-public class ServerProduct {
+public class ServerProfile {
 	private String name;
 	private String host;
 	private String port;
 	private String sshPort;
+	private String sshUsername;
+	private String sshPassword;
 	private String disFolder;
 	private String environmentApplication;
 
@@ -54,5 +56,21 @@ public class ServerProduct {
 
 	public void setEnvironmentApplication(String environmentApplication) {
 		this.environmentApplication = environmentApplication;
+	}
+
+	public String getSshUsername() {
+		return sshUsername;
+	}
+
+	public void setSshUsername(String sshUsername) {
+		this.sshUsername = sshUsername;
+	}
+
+	public String getSshPassword() {
+		return sshPassword;
+	}
+
+	public void setSshPassword(String sshPassword) {
+		this.sshPassword = sshPassword;
 	}
 }

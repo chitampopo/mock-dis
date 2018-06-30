@@ -9,15 +9,14 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource(name = "props", value = "classpath:application.properties", ignoreResourceNotFound = false)
 @ConfigurationProperties(prefix = "config")
-public class ServerProductConfig {
-	List<ServerProduct> serverProducts;
+public class ServerProfileCollection {
+	List<ServerProfile> serverProfiles;
 
-	public List<ServerProduct> getServerProducts() {
-		return serverProducts;
+	public List<ServerProfile> getServerProfiles() {
+		return serverProfiles;
 	}
 
-	public void setServerProducts(List<ServerProduct> serverProducts) {
-		this.serverProducts = serverProducts;
+	public void setServerProfiles(List<ServerProfile> serverProfiles) {
+		this.serverProfiles = serverProfiles;
 	}
-
 }
