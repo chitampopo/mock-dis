@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.innovation.mock.tool.entity.Metadata;
+import com.innovation.mock.tool.entity.ServerProfileCollection;
 import com.innovation.mock.tool.util.Constants;
 import com.innovation.mock.tool.util.RequestUtil;
 import com.innovation.mock.tool.util.ServerUtil;
@@ -22,6 +23,9 @@ public class WebUIController {
 
 	@Autowired
 	private Metadata initialMetadata;
+
+	@Autowired
+	private ServerProfileCollection serverProfiles;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = "text/html")
 	public String getMainPage(Model model) {
@@ -47,7 +51,7 @@ public class WebUIController {
 	
 	@RequestMapping(value="/updateServer", method = RequestMethod.POST)
 	public String updateServer(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) {
-		metadata.setServer(ServerUtil.updateServerInfo(metadata.getServer()));
+		metadata.setServer(ServerUtil.updateServerInfo(metadata.getServer(), serverProfiles));
 		model.addAttribute(Constants.METADATA, metadata);
         return Constants.MAIN_PAGE;
     }

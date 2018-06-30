@@ -1,5 +1,8 @@
 package com.innovation.mock.tool.entity;
 
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class ServerProfile {
 	private String name;
 	private String host;

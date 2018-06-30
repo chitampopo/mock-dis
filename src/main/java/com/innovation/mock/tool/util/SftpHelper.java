@@ -1,4 +1,4 @@
-package com.innovation.mock.tool.controller;
+package com.innovation.mock.tool.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +18,7 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 
 @Controller
-public class UploadSftpController {
+public class SftpHelper {
 
 	@Value("${sourceFile}")
 	private static String sourceFilePath;

@@ -4,19 +4,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.innovation.mock.tool.entity.Server;
 import com.innovation.mock.tool.entity.ServerProfile;
 import com.innovation.mock.tool.entity.ServerProfileCollection;
 
+@Service
 public class ServerUtil {
 
-	@Autowired
-	private static ServerProfileCollection serverProfiles;
-	
-	public static Server updateServerInfo(Server server) {
-		Optional<ServerProfile> serverProfile = findCurrentServerProfile(server);
+	public static Server updateServerInfo(Server server, ServerProfileCollection serverProfiles) {
+		Optional<ServerProfile> serverProfile = findCurrentServerProfile(server, serverProfiles);
 		
 		if(serverProfile.isPresent()) {
 			server.setHost(serverProfile.get().getHost());
@@ -28,7 +26,7 @@ public class ServerUtil {
 		return server;
 	}
 
-	public static Optional<ServerProfile> findCurrentServerProfile(Server server) {
+	public static Optional<ServerProfile> findCurrentServerProfile(Server server, ServerProfileCollection serverProfiles) {
 		String serverName = server.getProject() + "-" + server.getServerType();
 		List<ServerProfile> serverProfilesList = serverProfiles.getServerProfiles();
 		Optional<ServerProfile> serverProductOptional = serverProfilesList.stream().filter(matchServer(serverName)).findFirst();

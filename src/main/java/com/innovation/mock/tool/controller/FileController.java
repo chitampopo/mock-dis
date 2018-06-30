@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -17,19 +18,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.innovation.mock.tool.entity.Metadata;
 import com.innovation.mock.tool.entity.ServerProfile;
+import com.innovation.mock.tool.entity.ServerProfileCollection;
 import com.innovation.mock.tool.util.Constants;
 import com.innovation.mock.tool.util.ServerUtil;
+import com.innovation.mock.tool.util.SftpHelper;
 
 @Controller
-public class UploadController {
+public class FileController {
 
 	@Value("${sourceFile}")
 	private String sourceFilePath;
 	
+	@Autowired
+	private ServerProfileCollection serverProfiles;
+	
 	@PostMapping("/uploadFile")
 	public String singleFileUpload(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) throws IOException {
 		File sourceFile = new ClassPathResource(sourceFilePath).getFile();
-		Optional<ServerProfile> serverProfile = ServerUtil.findCurrentServerProfile(metadata.getServer());
+		Optional<ServerProfile> serverProfile = ServerUtil.findCurrentServerProfile(metadata.getServer(), serverProfiles);
 		
 		if (serverProfile.isPresent()) {
 			if (!serverProfile.get().getName().contains("local")) {
@@ -38,6 +44,13 @@ public class UploadController {
 				sendFileInteralServer(metadata, sourceFile, serverProfile.get());
 			}
 		}
+
+		model.addAttribute(Constants.METADATA, metadata);
+		return Constants.MAIN_PAGE;
+	}
+	
+	@PostMapping("/checkFile")
+	public String checkFileStatus(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) throws IOException {
 
 		model.addAttribute(Constants.METADATA, metadata);
 		return Constants.MAIN_PAGE;
@@ -54,7 +67,7 @@ public class UploadController {
 	}
 
 	private void sendFileToExternalServer(ServerProfile serverProfile) throws IOException {
-		UploadSftpController.uploadFile(serverProfile);
+		SftpHelper.uploadFile(serverProfile);
 	}
 	
 	private String buildNewFilePath(Metadata metadata, String destFolder, File file) {

@@ -250,7 +250,7 @@
 	                    <div class="card">
 	                      	<div class="card-header"><strong>Check file</strong></div>
 	                      	<div class="card-body card-block">
-		                        <form method="post" class="form-horizontal" action="#" th:action="@{/uploadFile}" th:object="${metadata}">
+		                        <form method="post" class="form-horizontal" action="#" th:action="@{/checkFile}" th:object="${metadata}">
 		                          	<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
 			                       	<div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
 			                    	<input type="submit" class="btn btn-danger btn-lg" value="Submit File - Step #3">
