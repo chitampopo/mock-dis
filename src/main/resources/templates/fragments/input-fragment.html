@@ -1,0 +1,6 @@
+<div class="col-6" th:fragment="inputField(fieldInput, text)">
+	<label for="${fieldInput}" class="control-label mb-1" th:text="${text}"></label>
+	<div class="input-group">
+		<input type="text" id="${fieldInput}" name="${fieldInput}" placeholder="designer" class="form-control" th:field="*{__${fieldInput}__}" >
+	</div>
+</div>	

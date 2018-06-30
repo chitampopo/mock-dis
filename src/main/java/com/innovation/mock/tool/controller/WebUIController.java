@@ -33,7 +33,7 @@ import com.innovation.mock.tool.entity.WebidResults;
 public class WebUIController {
 
 	@Autowired
-	private Metadata originMetadata;
+	private Metadata initialMetadata;
 	
 	@Autowired
 	private ServerProductConfig serverProductConfig;
@@ -46,9 +46,7 @@ public class WebUIController {
 	
 	@RequestMapping(method = RequestMethod.GET, produces = "text/html")
 	public String index(Model model) throws JsonGenerationException, JsonMappingException, IOException {
-		model.addAttribute(Constants.METADATA, originMetadata);
-		model.addAttribute(Constants.REQUEST_HEADER, originMetadata.getServer().buildRequestHeader());
-		model.addAttribute(Constants.REQUEST_BODY, originMetadata.getRequest().toRequestBody());
+		model.addAttribute(Constants.METADATA, initialMetadata);
         return "index";
     }
 	
@@ -62,16 +60,12 @@ public class WebUIController {
         new RestTemplate().postForObject(metadata.getServer().buildURL() , request, String.class);
 		
         model.addAttribute(Constants.METADATA, metadata);
-		model.addAttribute(Constants.REQUEST_HEADER, metadata.getServer().buildRequestHeader());
-		model.addAttribute(Constants.REQUEST_BODY, metadata.getRequest().toRequestBody());
         return "index";
     }
 	
 	@RequestMapping(value="/updateRequest", method = RequestMethod.POST)
 	public String updateRequest(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) throws JsonProcessingException {
 		model.addAttribute(Constants.METADATA, metadata);
-		model.addAttribute(Constants.REQUEST_HEADER, metadata.getServer().buildRequestHeader());
-		model.addAttribute(Constants.REQUEST_BODY, metadata.getRequest().toRequestBody());
         return "index";
     }
 	
@@ -89,8 +83,6 @@ public class WebUIController {
 		
 		metadata.setServer(currentServer);
 		model.addAttribute(Constants.METADATA, metadata);
-		model.addAttribute(Constants.REQUEST_HEADER, metadata.getServer().buildRequestHeader());
-		model.addAttribute(Constants.REQUEST_BODY, metadata.getRequest().toRequestBody());
         return "index";
     }
 	

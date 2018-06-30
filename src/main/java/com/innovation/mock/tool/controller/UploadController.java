@@ -54,8 +54,6 @@ public class UploadController {
 		}
 
 		model.addAttribute(Constants.METADATA, metadata);
-		model.addAttribute(Constants.REQUEST_HEADER, metadata.getServer().buildRequestHeader());
-		model.addAttribute(Constants.REQUEST_BODY, metadata.getRequest().toRequestBody());
 		return "index";
 	}
 
