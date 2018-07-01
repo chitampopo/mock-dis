@@ -30,6 +30,7 @@ public class WebUIController {
 	@RequestMapping(method = RequestMethod.GET, produces = "text/html")
 	public String getMainPage(Model model) {
 		model.addAttribute(Constants.METADATA, initialMetadata);
+		model.addAttribute(Constants.FILE_STATUS, "0");
         return Constants.MAIN_PAGE;
     }
 	
@@ -40,12 +41,14 @@ public class WebUIController {
 		
 		new RestTemplate().postForObject(url, request, String.class);
         model.addAttribute(Constants.METADATA, metadata);
+        model.addAttribute(Constants.FILE_STATUS, "0");
         return Constants.MAIN_PAGE;
     }
 
 	@RequestMapping(value="/updateRequest", method = RequestMethod.POST)
 	public String updateRequest(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) {
 		model.addAttribute(Constants.METADATA, metadata);
+		model.addAttribute(Constants.FILE_STATUS, "0");
         return Constants.MAIN_PAGE;
     }
 	
@@ -53,6 +56,7 @@ public class WebUIController {
 	public String updateServer(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) {
 		metadata.setServer(ServerUtil.updateServerInfo(metadata.getServer(), serverProfiles));
 		model.addAttribute(Constants.METADATA, metadata);
+		model.addAttribute(Constants.FILE_STATUS, "0");
         return Constants.MAIN_PAGE;
     }
 }

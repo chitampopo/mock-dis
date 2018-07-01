@@ -10,6 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 public class Metadata {
 	private Request request;
 	private Server server;
+	private String status;
 
 	public Metadata() {
 		this.request = new Request();
@@ -30,6 +31,14 @@ public class Metadata {
 
 	public void setServer(Server server) {
 		this.server = server;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

@@ -160,7 +160,7 @@
 										    </select>
 	                                  	</div>
 	                              	</div>
-	                              	<div class="col-6">
+	                              	<div class="col-6 invisible" >
 	                                	<div class="form-group">
 	                                    	<label for="serverType">Server</label>
 										    <select class="form-control" id="serverType" th:field="*{server.serverType}">
@@ -173,31 +173,31 @@
 	                              	</div>
 	                         	</div> 
 	                         	
-	                         	<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
+	                         	<div class="invisible" th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
 	                         	
-		                        <div class="row">
-	                              	<div class="col-6">
-	                                  	<div class="form-group">
-	                                      	<a class="btn btn-link" data-toggle="collapse" href="#collapseServer" role="button" aria-expanded="false" aria-controls="collapseServer">Show/Hide advance options</a>
-	                                  	</div>
-	                              	</div>
-	                         	</div>	
-	                       		<div id="collapseServer" class="collapse">  
-		                        	<div class="row">
-		                        		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.host', text = 'Host')"></div>
-	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.port', text = 'Port')"></div>
-		                         	 </div>
+<!-- 		                        <div class="row invisible"> -->
+<!-- 	                              	<div class="col-6"> -->
+<!-- 	                                  	<div class="form-group"> -->
+<!-- 	                                      	<a class="btn btn-link" data-toggle="collapse" href="#collapseServer" role="button" aria-expanded="false" aria-controls="collapseServer">Show/Hide advance options</a> -->
+<!-- 	                                  	</div> -->
+<!-- 	                              	</div> -->
+<!-- 	                         	</div>	 -->
+<!-- 	                       		<div id="collapseServer" class="collapse invisible">   -->
+<!-- 		                        	<div class="row"> -->
+<!-- 		                        		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.host', text = 'Host')"></div> -->
+<!-- 	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.port', text = 'Port')"></div> -->
+<!-- 		                         	 </div> -->
 		                         	 
-		                         	 <div class="row">
-		                         	 	<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.context', text = 'Context')"></div>
-	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.application', text = 'Application')"></div>
-		                         	 </div>
+<!-- 		                         	 <div class="row"> -->
+<!-- 		                         	 	<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.context', text = 'Context')"></div> -->
+<!-- 	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.application', text = 'Application')"></div> -->
+<!-- 		                         	 </div> -->
 		                        
-		                           	<div class="row">
-		                           		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.username', text = 'Username')"></div>
-	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.password', text = 'Password')"></div>
-			                      	</div>
-	                       		</div> <!-- end collapse server -->
+<!-- 		                           	<div class="row"> -->
+<!-- 		                           		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.username', text = 'Username')"></div> -->
+<!-- 	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.password', text = 'Password')"></div> -->
+<!-- 			                      	</div> -->
+<!-- 	                       		</div> end collapse server -->
 			               		<input type="submit" class="btn btn-primary btn-sm" value="Update Request">
                        		</form>
                       	</div>
@@ -253,8 +253,14 @@
 		                        <form method="post" class="form-horizontal" action="#" th:action="@{/checkFile}" th:object="${metadata}">
 		                          	<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
 			                       	<div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
-			                    	<input type="submit" class="btn btn-danger btn-lg" value="Submit File - Step #3">
+			                    	<input type="submit" class="btn btn-danger btn-lg" value="Check status - Step #3">
 		                        </form>
+		                    	<div th:switch="${fileStatus}">
+								    <button type="button" class="btn btn-primary" th:case="'0'">Waiting for uploading file</button>
+								    <button type="button" class="btn btn-info" th:case="'1'">System is checking</button>
+								    <button type="button" class="btn btn-success" th:case="'2'">File already checked</button>
+								    <button type="button" class="btn btn-danger" th:case="'3'">Some thing wen't wrong</button>
+								</div> 
 	                    	</div>
 	                    </div>
 					</div>
