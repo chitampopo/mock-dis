@@ -12,6 +12,7 @@ public class ServerProfile {
 	private String sshPassword;
 	private String disFolder;
 	private String environmentApplication;
+	private String elcaWsUrl;
 
 	public String getName() {
 		return name;
@@ -76,4 +77,13 @@ public class ServerProfile {
 	public void setSshPassword(String sshPassword) {
 		this.sshPassword = sshPassword;
 	}
+
+	public String getElcaWsUrl() {
+		return elcaWsUrl;
+	}
+
+	public void setElcaWsUrl(String elcaWsUrl) {
+		this.elcaWsUrl = elcaWsUrl;
+	}
+	
 }
