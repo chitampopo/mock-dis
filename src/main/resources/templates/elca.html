@@ -39,10 +39,10 @@
                             <div class="col-md-6 mb-3">
                                 <label for="country">Server <span class="required">*</span></label>
                                 <select class="custom-select d-block w-100" name="serverId" id="serverId" required th:field="*{server}">
-                                    <option value="l">localhost</option>
-                                    <option value="d">Dev</option>
-                                    <option value="t">Test</option>
-                                    <option value="q">Quality</option>
+                                    <option value="local">localhost</option>
+                                    <option value="dev">Dev</option>
+                                    <option value="test">Test</option>
+                                    <option value="quality">Quality</option>
                                 </select>
                             </div>
                         </div>
@@ -61,22 +61,14 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-5 mb-3">
-                                <label for="country">Number of page</label>
-                                <select class="custom-select d-block w-100" name="numberPage" id="numberPage" required>
-                                    <option value="1">One Page</option>
-                                    <option value="2">One more pages</option>
-                                </select>
-                            </div>
-                        </div>
+                        
                         <hr class="mb-4">
 
-                        <button class="btn btn-primary btn-lg btn-block" type="submit" name="sendElca">Send request to Axon System</button>
-
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" name="sendElca">Send request to Axon System</button>                                                
                     </form>
                     <br/>
-                    <?= $message ?>
+                    <div class='alert alert-success' role='alert' th:if="${result!=''}">Call ELCA feedback successfuly!</div>
+                    <div class='alert alert-danger' role='alert' th:if="${result==''}">Can not call ELCA feedback!</div>
                 </div>
             </div>
 
