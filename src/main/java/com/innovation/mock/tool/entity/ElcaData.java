@@ -1,5 +1,7 @@
 package com.innovation.mock.tool.entity;
 
+import java.util.Random;
+
 public class ElcaData {
 
 	private String elcaId;
@@ -51,7 +53,9 @@ public class ElcaData {
 	}
 
 	public String getElcaId() {
-		return "30000000004569";
+		Random rand = new Random();
+		this.elcaId = "3000000000" + (rand.nextInt(9999) + 1111);
+		return this.elcaId;
 	}
 
 	public void setElcaId(String elcaId) {
@@ -65,6 +69,5 @@ public class ElcaData {
 	public void setBankNumber(String bankNumber) {
 		this.bankNumber = bankNumber;
 	}
-	
 
 }
