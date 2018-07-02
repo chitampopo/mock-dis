@@ -1,165 +1,124 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="">
-<!--<![endif]-->
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Mock DIS Tool</title>
-<meta name="description" content="Mock DIS Tool">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Innovation Simulator ELCA Tool</title>
+        <!-- Bootstrap core CSS -->
+        <link href="/new-style/css/bootstrap.min.css" rel="stylesheet">       
+        <link rel="shortcut icon" href="/core/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+        <style type="text/css">
+            .required{
+                color:red;
+            }
+        </style>
+    </head>
+    <body class="bg-light">
+        <div class="container">
+            <div class="py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="https://www.elca.ch/themes/elca/logo_50th_anniversary.svg" alt="ELCA Logo">
+                <h2>ELCA FEEDBACK</h2>
+                <p class="lead">This is a tool support developer easy to simulator call ELCA feedback.</p>
+            </div>
+            <div class="row">
+                
+                <div class="col-md-12 order-md-1">
+                    <h4 class="mb-3">Required Infomation</h4>
 
-<link rel="apple-touch-icon" href="apple-icon.png">
-<link rel="shortcut icon" href="favicon.ico">
+                    <form class="needs-validation" novalidate action="/elca/sendElcaRequest" method="post" th:object="${elcaData}">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="country">Project <span class="required">*</span></label>
+                                <select class="custom-select d-block w-100" name="project" id="project" required th:field="*{project}">
+                                    <option value="alpha">Alpha</option>
+                                    <option value="acrevis">Acrevis</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="country">Server <span class="required">*</span></label>
+                                <select class="custom-select d-block w-100" name="serverId" id="serverId" required th:field="*{server}">
+                                    <option value="l">localhost</option>
+                                    <option value="d">Dev</option>
+                                    <option value="t">Test</option>
+                                    <option value="q">Quality</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="firstName">Dossier Id <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="dossierId" id="dossierId" required th:field="*{dossierId}">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="documentId">Document Id <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="documentId" id="documentId" required th:field="*{documentId}">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="documentType">Document Type <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="documentType" id="documentType" required th:field="*{documentType}">
+                            </div>
+                        </div>
 
-<link rel="stylesheet" href="css/normalize.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/themify-icons.css">
-<link rel="stylesheet" href="css/flag-icon.min.css">
-<link rel="stylesheet" href="css/cs-skin-elastic.css">
-<!-- <link rel="stylesheet" href="assets/css/bootstrap-select.less"> -->
-<link rel="stylesheet" href="scss/style.css">
-<link
-	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
-	rel="stylesheet">
-<link
-	href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800'
-	rel='stylesheet' type='text/css'>
-<script src="js/vendor/jquery-2.1.4.min.js"></script>
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+                        <div class="row">
+                            <div class="col-md-5 mb-3">
+                                <label for="country">Number of page</label>
+                                <select class="custom-select d-block w-100" name="numberPage" id="numberPage" required>
+                                    <option value="1">One Page</option>
+                                    <option value="2">One more pages</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
 
-</head>
-<body>
-	<!-- Left Panel -->
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" name="sendElca">Send request to Axon System</button>
 
-	<aside id="left-panel" class="left-panel">
-		<nav class="navbar navbar-expand-sm navbar-default">
+                    </form>
+                    <br/>
+                    <?= $message ?>
+                </div>
+            </div>
 
-			<div class="navbar-header">
-				<button class="navbar-toggler" type="button" data-toggle="collapse"
-					data-target="#main-menu" aria-controls="main-menu"
-					aria-expanded="false" aria-label="Toggle navigation">
-					<i class="fa fa-bars"></i>
-				</button>
-				<a class="navbar-brand" href="./"><img src="images/Swisscom.jpg"
-					alt="Logo"></a>
-			</div>
+            <footer class="my-5 pt-5 text-muted text-center text-small">
+                <p class="mb-1">&copy; 2018 Innovation Team</p>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#">ELCA</a></li>
+                    <li class="list-inline-item"><a href="../dis/">DIS</a></li>
+                </ul>
+            </footer>
+        </div>
 
-			<div id="main-menu" class="main-menu collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="index.html"> <i
-							class="menu-icon fa fa-dashboard"></i>Compose Request
-					</a></li>
-					<li><a href="index.html"> <i
-							class="menu-icon fa fa-dashboard"></i>History
-					</a></li>
-
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</nav>
-	</aside>
-	<!-- /#left-panel -->
-
-	<!-- Left Panel -->
-
-	<!-- Right Panel -->
-
-	<div id="right-panel" class="right-panel">
-
-		<div class="breadcrumbs">
-			<div class="col-sm-4">
-				<div class="page-header float-left">
-					<div class="page-title">
-						<h1>Compose Mock DIS request</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="content mt-3">
-		<form action="#" th:object="${elcaData}" method="post" class="form-horizontal" th:action="@{/updateRequest}" >
-			<div class="animated fadeIn">
-				<div class="row">
-					<div class="col-lg-6">
-						<div class="card">
-							<div class="card-header">
-								<strong>Compose DIS Request</strong>
-							</div>
-							<div class="card-body card-block">
-								<label for="x_card_code" class="control-label mb-1">Project</label>
-								<div class="input-group">
-									<input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control" th:field="*{dossierId}">
-								</div>
-								
-								<label for="x_card_code" class="control-label mb-1">Server</label>
-								<div class="input-group">
-									<input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control">
-								</div>
-								
-								<label for="x_card_code" class="control-label mb-1">Dossier Id</label>
-								<div class="input-group">
-									<input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control">
-								</div>
-								
-								<label for="x_card_code" class="control-label mb-1">Document Id</label>
-								<div class="input-group">
-									<input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control">
-								</div>
-								
-								<label for="x_card_code" class="control-label mb-1">Document Type</label>
-								<div class="input-group">
-									<input type="text" id="text-input" name="text-input" placeholder="889000009" class="form-control">
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-6"></div>
-				</div>
-			</div>
-			</form>
-			<!-- .animated -->
-		</div>
-		<!-- .content -->
-
-
-	</div>
-	<!-- /#right-panel -->
-
-	<!-- Right Panel -->
-
-
-	<script src="js/vendor/jquery-2.1.4.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/plugins.js"></script>
-	<script src="js/main.js"></script>
-	<script
-		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-	<script type="text/javascript">
-		$("#enable").click(function() {
-			alert("The text has been changed.");
-		});
-
-		// 	$('#enable').change(function() {
-		// 		    alert('ajksdh');
-		// 			if(this.checked) {
-		// 		    	$('#serverHost').prop('readonly', true);
-		// 		    	$('#serverPort').prop('readonly', true);
-		// 		    	$('#serverUserName').prop('readonly', true);
-		// 		    	$('#serverPasswrod').prop('readonly', true);
-		// 		    } else {
-		// 		    	$('#serverHost').prop('readonly', false);
-		// 		    	$('#serverPort').prop('readonly', false);
-		// 		    	$('#serverUserName').prop('readonly', false);
-		// 		    	$('#serverPasswrod').prop('readonly', false);
-		// 		    }
-		// 		});
-	</script>
-
-</body>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="/new-style/js/bootstrap.min.js"></script>
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+                'use strict';
+                window.addEventListener('load', function () {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+            setTimeout(function () {
+                hideAlertMessage();
+            }, 3000);
+            function hideAlertMessage() {
+                $(".alert").hide();
+            }
+        </script>
+    </body>
 </html>
