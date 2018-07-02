@@ -19,6 +19,9 @@ public class WebidResults {
 	}
 
 	public String toJson() throws JsonProcessingException {
-		return new ObjectMapper().writeValueAsString(this.webid_result);
+		String result = new ObjectMapper().writeValueAsString(this);
+		result = result.replace("\"confirmed\":true", "\"confirmed\":\"true\"");
+		result = result.replace("\"confirmed\":false", "\"confirmed\":\"false\"");
+		return result;
 	}
 }

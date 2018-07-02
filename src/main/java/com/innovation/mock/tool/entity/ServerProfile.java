@@ -1,11 +1,17 @@
 package com.innovation.mock.tool.entity;
 
-public class ServerProduct {
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class ServerProfile {
 	private String name;
 	private String host;
 	private String port;
 	private String sshPort;
+	private String sshUsername;
+	private String sshPassword;
 	private String disFolder;
+	private String environmentApplication;
 
 	public String getName() {
 		return name;
@@ -47,4 +53,27 @@ public class ServerProduct {
 		this.disFolder = disFolder;
 	}
 
+	public String getEnvironmentApplication() {
+		return environmentApplication;
+	}
+
+	public void setEnvironmentApplication(String environmentApplication) {
+		this.environmentApplication = environmentApplication;
+	}
+
+	public String getSshUsername() {
+		return sshUsername;
+	}
+
+	public void setSshUsername(String sshUsername) {
+		this.sshUsername = sshUsername;
+	}
+
+	public String getSshPassword() {
+		return sshPassword;
+	}
+
+	public void setSshPassword(String sshPassword) {
+		this.sshPassword = sshPassword;
+	}
 }

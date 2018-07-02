@@ -1,0 +1,25 @@
+<div th:fragment="hiddenRequestInput">
+	<input type="hidden" th:field="*{request.confirmed}">
+	<input type="hidden" th:field="*{request.transaction_id}">
+	<input type="hidden" th:field="*{request.cob_id}">
+	<input type="hidden" th:field="*{request.accountHolder}">
+	<input type="hidden" th:field="*{request.webid_action_id}">
+	<input type="hidden" th:field="*{request.user_data.firstname}">
+	<input type="hidden" th:field="*{request.user_data.lastname}">
+	<input type="hidden" th:field="*{request.user_data.city}">
+	<input type="hidden" th:field="*{request.user_data.street}">
+	<input type="hidden" th:field="*{request.user_data.street_nr}">
+	<input type="hidden" th:field="*{request.user_data.zip}">
+	<input type="hidden" th:field="*{request.user_data.country}">
+	<input type="hidden" th:field="*{request.user_data.dob}">
+	<input type="hidden" th:field="*{request.user_data_pass.exhibition_authority}">
+	<input type="hidden" th:field="*{request.user_data_pass.expires_date}">
+	<input type="hidden" th:field="*{request.user_data_pass.date_of_issue}">
+	<input type="hidden" th:field="*{request.user_data_pass.pass_nr}">
+	<input type="hidden" th:field="*{request.user_data_pass.pass_type}">
+	<input type="hidden" th:field="*{request.user_data_pass.birthplace}">
+	<input type="hidden" th:field="*{request.user_data_pass.birthname}">
+	<input type="hidden" th:field="*{request.user_data_pass.nationality}">
+	<input type="hidden" th:field="*{request.callcenter_data.callcenter_data_id}">
+	<input type="hidden" th:field="*{request.callcenter_data.callcenter_id}">
+</div>
