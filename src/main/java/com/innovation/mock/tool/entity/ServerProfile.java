@@ -12,6 +12,9 @@ public class ServerProfile {
 	private String sshPassword;
 	private String disFolder;
 	private String environmentApplication;
+	private String authenUsername;
+	private String authenPassword;
+	private String profileContext;
 
 	public String getName() {
 		return name;
@@ -75,5 +78,29 @@ public class ServerProfile {
 
 	public void setSshPassword(String sshPassword) {
 		this.sshPassword = sshPassword;
+	}
+
+	public String getAuthenUsername() {
+		return authenUsername;
+	}
+
+	public void setAuthenUsername(String authenUsername) {
+		this.authenUsername = authenUsername;
+	}
+
+	public String getAuthenPassword() {
+		return authenPassword;
+	}
+
+	public void setAuthenPassword(String authenPassword) {
+		this.authenPassword = authenPassword;
+	}
+
+	public String getProfileContext() {
+		return profileContext;
+	}
+
+	public void setProfileContext(String profileContext) {
+		this.profileContext = profileContext;
 	}
 }

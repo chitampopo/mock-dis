@@ -1,6 +1,9 @@
 package com.innovation.mock.tool.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +24,19 @@ import com.innovation.mock.tool.util.ServerUtil;
 @RequestMapping("/")
 public class WebUIController {
 
+	private static final Logger logger = LoggerFactory.getLogger(WebUIController.class);
+	
 	@Autowired
 	private Metadata initialMetadata;
 
 	@Autowired
 	private ServerProfileCollection serverProfiles;
+	
+	@Value("${metadata.server.username}")
+	private static String userName;
+	
+	@Value("${metadata.server.password}")
+	private static String password;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = "text/html")
 	public String getMainPage(Model model) {
@@ -37,7 +48,8 @@ public class WebUIController {
 	@RequestMapping(value="/sendRequest", method = RequestMethod.POST)
 	public String sendRequest(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) throws JsonProcessingException {
 		String url = metadata.getServer().buildURL();
-		HttpEntity<MultiValueMap<String, String>> request = RequestUtil.buildRequestInformation(metadata, RequestUtil.buildHeaders());
+		logger.info("URL: " + url);
+		HttpEntity<MultiValueMap<String, String>> request = RequestUtil.buildRequestInformation(metadata, RequestUtil.buildHeaders(userName, password));
 		
 		new RestTemplate().postForObject(url, request, String.class);
         model.addAttribute(Constants.METADATA, metadata);

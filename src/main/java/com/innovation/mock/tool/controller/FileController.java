@@ -5,9 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.channels.FileChannel;
 import java.util.Optional;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
@@ -32,14 +34,26 @@ public class FileController {
 	private static String fileInProcessedByDIS = "";
 
 	@Value("${sourceFile}")
-	private String sourceFilePath;
+	private String sourceFileName;
+	
+	@Value("${sourceFile2}")
+	private String sourceFileNameForAH2;
 
 	@Autowired
 	private ServerProfileCollection serverProfiles;
 
 	@PostMapping("/uploadFile")
 	public String singleFileUpload(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) throws IOException {
-		File sourceFile = new ClassPathResource(sourceFilePath).getFile();
+		
+		InputStream inputStream = new ClassPathResource("./" + sourceFileName).getInputStream();
+		
+		if(metadata.getRequest().getAccountHolder().equals("1")) {
+			inputStream = new ClassPathResource("./" + sourceFileNameForAH2).getInputStream();
+		}
+		
+		File sourceFile = new File(sourceFileName);
+		 
+	    FileUtils.copyInputStreamToFile(inputStream, sourceFile);
 		Optional<ServerProfile> serverProfile = ServerUtil.findCurrentServerProfile(metadata.getServer(), serverProfiles);
 
 		if (serverProfile.isPresent()) {
@@ -93,6 +107,7 @@ public class FileController {
 				FileChannel dest = new FileOutputStream(new File(newFilePath)).getChannel();) {
 			dest.transferFrom(source, 0, source.size());
 		}
+		//sourceFile.delete();
 	}
 
 	private void deleteIfExisted(String path) {
@@ -111,18 +126,16 @@ public class FileController {
 	}
 
 	private void sendFileToExternalServer(Request request, ServerProfile serverProfile) throws IOException {
-		SftpHelper.uploadFile(request, sourceFilePath, serverProfile);
+		SftpHelper.uploadFile(request, sourceFileName, serverProfile);
 	}
 
 	private String buildNewFilePath(Request request, String destFolder, File file) {
-		return destFolder + File.separator + file.getName().replaceAll(Constants.ORIGIN_TRANSACTION_ID,
-				request.getCob_id() + "-" + request.getAccountHolder());
+		return destFolder + File.separator + file.getName().replaceAll(Constants.ORIGIN_TRANSACTION_ID, request.getCob_id());
 	}
 
 	private String buildProcessByDISPath(Request request, String disFolder, File file) {
 		if (request != null) {
-			return disFolder + File.separator + "processedByDIS" + File.separator + file.getName().replaceAll(
-					Constants.ORIGIN_TRANSACTION_ID, request.getCob_id() + "-" + request.getAccountHolder());
+			return disFolder + File.separator + "processedByDIS" + File.separator + file.getName().replaceAll(Constants.ORIGIN_TRANSACTION_ID, request.getCob_id());
 		}
 		return disFolder + File.separator + "processedByDIS" + File.separator + file.getName();
 	}

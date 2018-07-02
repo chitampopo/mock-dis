@@ -1,7 +1,8 @@
 package com.innovation.mock.tool.util;
 
 import org.apache.commons.net.util.Base64;
-import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -9,32 +10,34 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.innovation.mock.tool.controller.WebUIController;
 import com.innovation.mock.tool.entity.Metadata;
 import com.innovation.mock.tool.entity.WebidResults;
 
 public class RequestUtil {
 
-	@Value("${metadata.server.username}")
-	private static String userName;
+	private static final Logger logger = LoggerFactory.getLogger(WebUIController.class);
 	
-	@Value("${metadata.server.password}")
-	private static String password;
-	
-	public static String buildAuthenticationHeader() {
-		String rawAuthen = userName + ":" + password;
+	public static String buildAuthenticationHeader(String username, String password) {
+		String rawAuthen = username + ":" + password;
 		byte[] base64CredsBytes = Base64.encodeBase64(rawAuthen.getBytes());
-		return new String(base64CredsBytes);
+		String authenInfoEncoded = new String(base64CredsBytes);
+		logger.info("Authen Info: " + authenInfoEncoded);
+		return authenInfoEncoded;
 	}
 	
-	public static HttpHeaders buildHeaders() {
+	public static HttpHeaders buildHeaders(String username, String password) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		headers.add("Authorization", "Basic " + buildAuthenticationHeader());
+		headers.add("Authorization", "Basic " + buildAuthenticationHeader(username, password));
+		logger.info("Authen Info: " + headers);
 		return headers;
 	}
 	
 	public static String buildJsonforWebIdResponse(Metadata metadata) throws JsonProcessingException {
-		return new WebidResults(metadata.getRequest()).toJson();
+		String json = new WebidResults(metadata.getRequest()).toJson();
+		logger.info("Web ID Response - Request body: " + json);
+		return json;
 	}
 
 	public static HttpEntity<MultiValueMap<String, String>> buildRequestInformation(Metadata metadata, HttpHeaders headers) throws JsonProcessingException {

@@ -22,6 +22,10 @@ public class ServerUtil {
 			server.setApplication(serverProfile.get().getEnvironmentApplication());
 			server.setSshUsername(serverProfile.get().getSshUsername());
 			server.setSshPassword(serverProfile.get().getSshPassword());
+			server.setProject(serverProfile.get().getEnvironmentApplication());
+			server.setContext(serverProfile.get().getProfileContext());
+			server.setUsername(serverProfile.get().getAuthenUsername());
+			server.setPassword(serverProfile.get().getAuthenPassword());
 		}
 		return server;
 	}
