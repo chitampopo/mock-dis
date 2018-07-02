@@ -15,6 +15,7 @@ public class ServerProfile {
 	private String authenUsername;
 	private String authenPassword;
 	private String profileContext;
+	private String elcaWsUrl;
 
 	public String getName() {
 		return name;
@@ -102,5 +103,13 @@ public class ServerProfile {
 
 	public void setProfileContext(String profileContext) {
 		this.profileContext = profileContext;
+	}
+
+	public String getElcaWsUrl() {
+		return elcaWsUrl;
+	}
+
+	public void setElcaWsUrl(String elcaWsUrl) {
+		this.elcaWsUrl = elcaWsUrl;
 	}
 }
