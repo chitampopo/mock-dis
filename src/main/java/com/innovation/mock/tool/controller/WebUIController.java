@@ -11,10 +11,12 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.innovation.mock.tool.entity.Metadata;
+import com.innovation.mock.tool.entity.Server;
 import com.innovation.mock.tool.entity.ServerProfileCollection;
 import com.innovation.mock.tool.util.Constants;
 import com.innovation.mock.tool.util.RequestUtil;
@@ -49,9 +51,14 @@ public class WebUIController {
 	public String sendRequest(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) throws JsonProcessingException {
 		String url = metadata.getServer().buildURL();
 		logger.info("URL: " + url);
-		HttpEntity<MultiValueMap<String, String>> request = RequestUtil.buildRequestInformation(metadata, RequestUtil.buildHeaders(userName, password));
-		
-		new RestTemplate().postForObject(url, request, String.class);
+		Server currentServer = metadata.getServer();
+		HttpEntity<MultiValueMap<String, String>> request = RequestUtil.buildRequestInformation(metadata, RequestUtil.buildHeaders(currentServer.getUsername(), currentServer.getPassword()));
+		try {
+			new RestTemplate().postForObject(url, request, String.class);
+		} catch (RestClientException e) {
+			logger.error(e.getMessage());
+			logger.error(e.getStackTrace().toString());
+		}
         model.addAttribute(Constants.METADATA, metadata);
         model.addAttribute(Constants.FILE_STATUS, "0");
         return Constants.MAIN_PAGE;

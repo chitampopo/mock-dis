@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.innovation.mock.tool.entity.Server;
 import com.innovation.mock.tool.entity.ServerProfile;
@@ -22,7 +23,7 @@ public class ServerUtil {
 			server.setApplication(serverProfile.get().getEnvironmentApplication());
 			server.setSshUsername(serverProfile.get().getSshUsername());
 			server.setSshPassword(serverProfile.get().getSshPassword());
-			server.setProject(serverProfile.get().getEnvironmentApplication());
+			server.setProject(StringUtils.split(serverProfile.get().getName(), "-")[0]);
 			server.setContext(serverProfile.get().getProfileContext());
 			server.setUsername(serverProfile.get().getAuthenUsername());
 			server.setPassword(serverProfile.get().getAuthenPassword());

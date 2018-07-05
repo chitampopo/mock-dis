@@ -27,6 +27,7 @@ public class RequestUtil {
 	}
 	
 	public static HttpHeaders buildHeaders(String username, String password) {
+		logger.info("Username: " + username + ", password: " + password);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		headers.add("Authorization", "Basic " + buildAuthenticationHeader(username, password));
@@ -37,7 +38,7 @@ public class RequestUtil {
 	public static String buildJsonforWebIdResponse(Metadata metadata) throws JsonProcessingException {
 		String json = new WebidResults(metadata.getRequest()).toJson();
 		logger.info("Web ID Response - Request body: " + json);
-		return json;
+		return Base64.encodeBase64String(json.getBytes());
 	}
 
 	public static HttpEntity<MultiValueMap<String, String>> buildRequestInformation(Metadata metadata, HttpHeaders headers) throws JsonProcessingException {
@@ -45,7 +46,7 @@ public class RequestUtil {
         parts.add("webid_response", buildJsonforWebIdResponse(metadata));
         parts.add("your_transaction_id", metadata.getRequest().getTransaction_id());
         parts.add("webid_action_id", metadata.getRequest().getWebid_action_id());
-        parts.add("webid_confirmed", metadata.getRequest().isConfirmed() ? "true" : "false");
+        parts.add("webid_confirmed", metadata.getRequest().isConfirmed() ? "1" : "0");
         parts.add("webid_doc_signed", "");
         parts.add("webid_server_timestamp", "362054604");
         return new HttpEntity<MultiValueMap<String,String>>(parts, headers);

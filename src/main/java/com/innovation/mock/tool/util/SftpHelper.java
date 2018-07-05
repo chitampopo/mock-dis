@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 
@@ -20,12 +22,17 @@ import com.jcraft.jsch.SftpException;
 @Controller
 public class SftpHelper {
 
-	public static void uploadFile(Request request, String sourceFilePath, ServerProfile serverProfile) throws IOException {
+	private static String filePathInServer = "";
+	
+	public static String uploadFile(Request request, String sourceFilePath, ServerProfile serverProfile) throws IOException {
 		JSch ssh = new JSch();
 		ChannelSftp sftp = null;
 		Session session = null;
 
-		File fileNeedUploaded = new ClassPathResource(sourceFilePath).getFile();
+		InputStream inputStream = new ClassPathResource("./" + sourceFilePath).getInputStream();
+		File fileNeedUploaded = new File(sourceFilePath);
+	    FileUtils.copyInputStreamToFile(inputStream, fileNeedUploaded);
+		
 		String newFilePath = buildNewFilePath(request, serverProfile.getDisFolder(), fileNeedUploaded);
 		try {
 			session = ssh.getSession(serverProfile.getSshUsername(), serverProfile.getHost(), Integer.valueOf(serverProfile.getSshPort()));
@@ -34,6 +41,7 @@ public class SftpHelper {
 			session.connect();
 			sftp = (ChannelSftp) session.openChannel("sftp");
 			sftp.connect();
+			filePathInServer = newFilePath;
 			sftp.put(new FileInputStream(fileNeedUploaded),	newFilePath, ChannelSftp.OVERWRITE);
 		} catch (JSchException e) {
 			System.out.println(e);
@@ -45,15 +53,23 @@ public class SftpHelper {
 			sftp.disconnect();
 			session.disconnect();
 		}
+		
+		return newFilePath;
 	}
 
-	public static boolean checkFileStatus(String sourceFilePath, ServerProfile serverProfile) throws NumberFormatException, JSchException, IOException {
+	/**
+	 * existed or not
+	 * 
+	 * @param serverProfile
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws JSchException
+	 * @throws IOException
+	 */
+	public static boolean checkFileExisted(String sourceFilePath, ServerProfile serverProfile) throws NumberFormatException, JSchException, IOException {
 		JSch ssh = new JSch();
 		ChannelSftp sftp = null;
 		Session session = null;
-
-		File fileNeedUploaded = new ClassPathResource(sourceFilePath).getFile();
-		String newFilePath = serverProfile.getDisFolder() + File.separator + fileNeedUploaded.getName();
 		try {
 			session = ssh.getSession(serverProfile.getSshUsername(), serverProfile.getHost(), Integer.valueOf(serverProfile.getSshPort()));
 			session.setConfig(buildConfiguations());
@@ -61,7 +77,7 @@ public class SftpHelper {
 			session.connect();
 			sftp = (ChannelSftp) session.openChannel("sftp");
 			sftp.connect();
-			sftp.lstat(newFilePath);
+			sftp.lstat(sourceFilePath);
 		} catch (SftpException e) {
 			return false;
 		}
@@ -76,6 +92,6 @@ public class SftpHelper {
 	}
 	
 	private static String buildNewFilePath(Request request, String destFolder, File file) {
-		return destFolder + File.separator + file.getName().replaceAll(Constants.ORIGIN_TRANSACTION_ID, request.getCob_id() + "-" + request.getAccountHolder());
+		return destFolder + file.getName().replaceAll(Constants.ORIGIN_TRANSACTION_ID, request.getCob_id());
 	}
 }
