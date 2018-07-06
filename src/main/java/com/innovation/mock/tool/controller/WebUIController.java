@@ -44,6 +44,7 @@ public class WebUIController {
 	public String getMainPage(Model model) {
 		model.addAttribute(Constants.METADATA, initialMetadata);
 		model.addAttribute(Constants.FILE_STATUS, "0");
+		model.addAttribute("responseStatus", "0");
         return Constants.MAIN_PAGE;
     }
 	
@@ -56,9 +57,11 @@ public class WebUIController {
 		try {
 			new RestTemplate().postForObject(url, request, String.class);
 		} catch (RestClientException e) {
+			model.addAttribute("responseStatus", "2");
 			logger.error(e.getMessage());
 			logger.error(e.getStackTrace().toString());
 		}
+		model.addAttribute("responseStatus", "1");
         model.addAttribute(Constants.METADATA, metadata);
         model.addAttribute(Constants.FILE_STATUS, "0");
         return Constants.MAIN_PAGE;
@@ -66,6 +69,7 @@ public class WebUIController {
 
 	@RequestMapping(value="/updateRequest", method = RequestMethod.POST)
 	public String updateRequest(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) {
+		metadata.setServer(ServerUtil.updateServerInfo(metadata.getServer(), serverProfiles));
 		model.addAttribute(Constants.METADATA, metadata);
 		model.addAttribute(Constants.FILE_STATUS, "0");
         return Constants.MAIN_PAGE;

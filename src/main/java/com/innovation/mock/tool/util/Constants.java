@@ -9,5 +9,9 @@ public class Constants {
 	public final static String ORIGIN_TRANSACTION_ID = "COB000117";
 	public static final String MAIN_PAGE = "index";
 	public static final String FILE_STATUS = "fileStatus";
+	public static final String PROCESSED_BY_DIS = "processedByDIS";
+	public static final String FILE_SERPATOR_WINDOWS = "\\";
+	public static final String FILE_SEPARATOR_UNIX = "/";
+	public static final String ACCOUNT_HOLDER2 = "1";
 	
 }

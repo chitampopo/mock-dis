@@ -49,170 +49,136 @@
 			<div class="animated fadeIn">
 				<div class="row">
                 	<div class="col-lg-6">
-                    <div class="card">
-                    	<div class="card-header"><strong>Compose DIS Request</strong></div>
-                      	<div class="card-body card-block">
-                        	<form action="#" th:object="${metadata}" method="post" class="form-horizontal" th:action="@{/updateRequest}" >
-                            	<input type="hidden" th:field="*{server.host}">
-                          		<input type="hidden" th:field="*{server.port}">
-                          		<input type="hidden" th:field="*{server.context}">
-                          		<input type="hidden" th:field="*{server.application}">
-                          		<input type="hidden" th:field="*{server.username}">
-                          		<input type="hidden" th:field="*{server.password}">
-                          
-	                          	<div class="row">
-	                            	<div class="col-6">
-	                                	<div class="form-group">
-	                                    	<label for="serverType">Confirmed result</label>
-										    <select class="form-control" id="serverType" th:field="*{request.confirmed}">
-										    	<option value="1">Successful</option>
-										    	<option value="0">Failed</option>
-										    </select>
-	                                  	</div>
-	                              	</div>
-									<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.webid_action_id', text = 'WebID Action ID')"></div>
-	                          	</div>
-	                          	
-	                          	<div class="row">
-	                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.cob_id', text = 'COB ID')"></div>
-	                          	
-	                              	<div class="col-6">
-	                                	<div class="form-group">
-	                                    	<label for="cc-exp" class="control-label mb-1">Account Holder</label>
-	                                      	<select name="select" id="select" class="form-control" th:field="*{request.accountHolder}">
-			                                	<option value="0">Account Holder 1</option>
-			                                	<option value="1">Account Holder 2</option>
-			                              	</select>
-	                                  	</div>
-	                              	</div>
-	                          	</div>
-                          
-                          		<div class="row">
-                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.firstname', text = 'First name')"></div>
-                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.lastname', text = 'Last name')"></div>
-                          		</div>
-                          
-	                          	<div class="row">
-	                              	<div class="col-6">
-	                                  	<div class="form-group">
-	                                      <a class="btn btn-link" data-toggle="collapse" href="#collapseRequest" role="button" aria-expanded="false" aria-controls="collapseRequest">Show/Hide advance options</a>
-	                                  	</div>
-	                              	</div>
-	                          	</div>
+	                    <div class="card">
+	                    	<div class="card-header"><strong>Compose DIS Request</strong></div>
+	                      	<div class="card-body card-block">
+	                        	<form action="#" th:object="${metadata}" method="post" class="form-horizontal" th:action="@{/updateRequest}" >
+	                            	<input type="hidden" th:field="*{server.host}">
+	                          		<input type="hidden" th:field="*{server.port}">
+	                          		<input type="hidden" th:field="*{server.context}">
+	                          		<input type="hidden" th:field="*{server.application}">
+	                          		<input type="hidden" th:field="*{server.username}">
+	                          		<input type="hidden" th:field="*{server.password}">
 	                          
-                       			<div id="collapseRequest" class="collapse">   
+	                          		<div class="row">
+		                            	<div class="col-6">
+		                                	<div class="form-group">
+		                                    	<label for="project">Project</label>
+												<select class="form-control" id="project" th:field="*{server.project}">
+											    	<option value="alpha">Alpha</option>
+											    	<option value="acrevis">Acrevis</option>
+											    </select>
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6" >
+		                                	<div class="form-group">
+		                                    	<label for="serverType">Server</label>
+											    <select class="form-control" id="serverType" th:field="*{server.serverType}">
+											    	<option value="local">Local</option>
+											      	<option value="dev">Dev</option>
+											      	<option value="test">Test</option>
+											      	<option value="quality">Quality</option>
+											    </select>
+		                                  	</div>
+		                              	</div>
+		                         	</div> 
+	                          
 		                          	<div class="row">
-	                       				<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.city', text = 'City')"></div>
-	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.zip', text = 'Zip code')"></div>
+		                            	<div class="col-6">
+		                                	<div class="form-group">
+		                                    	<label for="serverType">Confirmed result</label>
+											    <select class="form-control" id="serverType" th:field="*{request.confirmed}">
+											    	<option value="1">Successful</option>
+											    	<option value="0">Failed</option>
+											    </select>
+		                                  	</div>
+		                              	</div>
+										<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.webid_action_id', text = 'WebID Action ID')"></div>
 		                          	</div>
-                          
+		                          	
 		                          	<div class="row">
-		                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.street', text = 'Street')"></div>
-	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.street_nr', text = 'Street number')"></div>
+		                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.cob_id', text = 'COB ID')"></div>
+		                          	
+		                              	<div class="col-6">
+		                                	<div class="form-group">
+		                                    	<label for="cc-exp" class="control-label mb-1">Account Holder</label>
+		                                      	<select name="select" id="select" class="form-control" th:field="*{request.accountHolder}">
+				                                	<option value="0">Account Holder 1</option>
+				                                	<option value="1">Account Holder 2</option>
+				                              	</select>
+		                                  	</div>
+		                              	</div>
 		                          	</div>
-                          
+	                          
+	                          		<div class="row">
+	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.firstname', text = 'First name')"></div>
+	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.lastname', text = 'Last name')"></div>
+	                          		</div>
+	                          
 		                          	<div class="row">
-		                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.dob', text = 'Date of birth')"></div>
-	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.exhibition_authority', text = 'Exhibition Authority')"></div>
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                      <a class="btn btn-link" data-toggle="collapse" href="#collapseRequest" role="button" aria-expanded="false" aria-controls="collapseRequest">Show/Hide advance options</a>
+		                                  	</div>
+		                              	</div>
 		                          	</div>
-                          
-		                          	<div class="row">
-		                              	<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.expires_date', text = 'Expires Date')"></div>
-	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.date_of_issue', text = 'Date of issue')"></div>
-		                          	</div>
-                          
-		                          	<div class="row">
-		                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.pass_nr', text = 'Pass number')"></div>
-	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.pass_type', text = 'Pass type')"></div>
-		                          	</div>
-                          
-		                          	<div class="row">
-		                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.birthplace', text = 'Birthplace')"></div>
-	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.birthname', text = 'Birth Name')"></div>
-		                          	</div>
-                          
-		                          	<div class="row">
-		                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.country', text = 'Country Code')"></div>
-	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.nationality', text = 'Nationality Code')"></div>
-		                          	</div>
-                          
-		                          	<div class="row">
-		                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.callcenter_data.callcenter_data_id', text = 'Call Center Data ID')"></div>
-	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.callcenter_data.callcenter_id', text = 'Call Center ID')"></div>
-		                          	</div>
-                     			</div><!-- end collapseRequest -->
-                        		<input type="submit" class="btn btn-primary btn-sm" value="Update Request">
-                       		</form>
-                     	</div>
-                   </div>
-                    
-                   	<div class="card">
-                   		<div class="card-header"><strong>Server Information</strong></div>
-                      	<div class="card-body card-block">
-	                    	<form action="#" th:object="${metadata}" method="post" class="form-horizontal" th:action="@{/updateServer}">
-	                        	<div class="row">
-	                            	<div class="col-6">
-	                                	<div class="form-group">
-	                                    	<label for="project">Project</label>
-											<select class="form-control" id="project" th:field="*{server.project}">
-										    	<option value="alpha">Alpha</option>
-										    	<option value="acrevis">Acrevis</option>
-										    </select>
-	                                  	</div>
-	                              	</div>
-	                              	<div class="col-6" >
-	                                	<div class="form-group">
-	                                    	<label for="serverType">Server</label>
-										    <select class="form-control" id="serverType" th:field="*{server.serverType}">
-										    	<option value="local">Local</option>
-										      	<option value="dev">Dev</option>
-										      	<option value="test">Test</option>
-										      	<option value="quality">Quality</option>
-										    </select>
-	                                  	</div>
-	                              	</div>
-	                         	</div> 
-	                         	
-	                         	<div class="invisible" th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
-	                         	
-<!-- 		                        <div class="row invisible"> -->
-<!-- 	                              	<div class="col-6"> -->
-<!-- 	                                  	<div class="form-group"> -->
-<!-- 	                                      	<a class="btn btn-link" data-toggle="collapse" href="#collapseServer" role="button" aria-expanded="false" aria-controls="collapseServer">Show/Hide advance options</a> -->
-<!-- 	                                  	</div> -->
-<!-- 	                              	</div> -->
-<!-- 	                         	</div>	 -->
-<!-- 	                       		<div id="collapseServer" class="collapse invisible">   -->
-<!-- 		                        	<div class="row"> -->
-<!-- 		                        		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.host', text = 'Host')"></div> -->
-<!-- 	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.port', text = 'Port')"></div> -->
-<!-- 		                         	 </div> -->
-		                         	 
-<!-- 		                         	 <div class="row"> -->
-<!-- 		                         	 	<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.context', text = 'Context')"></div> -->
-<!-- 	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.application', text = 'Application')"></div> -->
-<!-- 		                         	 </div> -->
-		                        
-<!-- 		                           	<div class="row"> -->
-<!-- 		                           		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.username', text = 'Username')"></div> -->
-<!-- 	                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'server.password', text = 'Password')"></div> -->
-<!-- 			                      	</div> -->
-<!-- 	                       		</div> end collapse server -->
-			               		<input type="submit" class="btn btn-primary btn-sm" value="Update Request">
-                       		</form>
-                      	</div>
-                   	</div>
+		                          
+	                       			<div id="collapseRequest" class="collapse">   
+			                          	<div class="row">
+		                       				<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.city', text = 'City')"></div>
+		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.zip', text = 'Zip code')"></div>
+			                          	</div>
+	                          
+			                          	<div class="row">
+			                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.street', text = 'Street')"></div>
+		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.street_nr', text = 'Street number')"></div>
+			                          	</div>
+	                          
+			                          	<div class="row">
+			                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.dob', text = 'Date of birth')"></div>
+		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.exhibition_authority', text = 'Exhibition Authority')"></div>
+			                          	</div>
+	                          
+			                          	<div class="row">
+			                              	<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.expires_date', text = 'Expires Date')"></div>
+		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.date_of_issue', text = 'Date of issue')"></div>
+			                          	</div>
+	                          
+			                          	<div class="row">
+			                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.pass_nr', text = 'Pass number')"></div>
+		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.pass_type', text = 'Pass type')"></div>
+			                          	</div>
+	                          
+			                          	<div class="row">
+			                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.birthplace', text = 'Birthplace')"></div>
+		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.birthname', text = 'Birth Name')"></div>
+			                          	</div>
+	                          
+			                          	<div class="row">
+			                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.country', text = 'Country Code')"></div>
+		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.nationality', text = 'Nationality Code')"></div>
+			                          	</div>
+	                          
+			                          	<div class="row">
+			                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.callcenter_data.callcenter_data_id', text = 'Call Center Data ID')"></div>
+		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.callcenter_data.callcenter_id', text = 'Call Center ID')"></div>
+			                          	</div>
+	                     			</div><!-- end collapseRequest -->
+	                        		<input type="submit" class="btn btn-primary btn-sm" value="Update Request">
+	                       		</form>
+	                     	</div>
+	                   	</div>
                   	</div>
 
                   	<div class="col-lg-6">
 	                    <div class="card">
 	                      	<div class="card-header"><strong>Request</strong></div>
-	                        <form method="post" class="form-horizontal" action="#" th:action="@{/sendRequest}" th:object="${metadata}">
-	                          	<div class="card-body card-block">
+	                        <div class="card-body card-block">
+	                        	<form method="post" class="form-horizontal" action="#" th:action="@{/sendRequest}" th:object="${metadata}">
 			                      	<div class="row">
 		                              	<div class="col-6">
 		                                  	<div class="form-group">
-		                                      	<a class="btn btn-link" data-toggle="collapse" href="#collapseRequestReview" role="button" aria-expanded="false" aria-controls="collapseRequestReview">Show/Hide advance options</a>
+		                                      	<a class="btn btn-link" data-toggle="collapse" href="#collapseRequestReview" role="button" aria-expanded="false" aria-controls="collapseRequestReview">Show/Hide request information</a>
 		                                  	</div>
 		                              	</div>
 			                       	</div>
@@ -231,20 +197,31 @@
 				                            </div>
 				                        </div>
 		                          	</div>
-		                        	<input type="submit" class="btn btn-danger btn-lg" value="Submit Request - Step #1">
-	                      	  	</div>
-	                        </form>
-	                    </div>
-	                    
-	                    <div class="card">
-	                      	<div class="card-header"><strong>Upload file</strong></div>
-	                      	<div class="card-body card-block">
-		                        <form method="post" class="form-horizontal" action="#" th:action="@{/uploadFile}" th:object="${metadata}">
+		                          	<div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                        				<input type="submit" class="btn btn-danger" value="Submit Request - Step #1">
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                  		<div th:switch="${responseStatus}">
+												    <button type="button" class="btn btn-primary" th:case="'0'">Waiting for sending request</button>
+												    <button type="button" class="btn btn-success" th:case="'1'">Successful</button>
+												    <button type="button" class="btn btn-danger" th:case="'2'">Error</button>
+												</div> 
+		                                  	</div>
+		                              	</div>
+			                       	</div>
+	                        	</form>
+	                        	
+	                        	<hr>
+	                        	<form method="post" class="form-horizontal" action="#" th:action="@{/uploadFile}" th:object="${metadata}">
 		                          	<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
 			                       	<div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
-			                    	<input type="submit" class="btn btn-danger btn-lg" value="Submit File - Step #2">
+			                    	<input type="submit" class="btn btn-danger" value="Submit File - Step #2">
 		                        </form>
-	                    	</div>
+	                      	</div>
 	                    </div>
 	                    
 	                    <div class="card">
@@ -253,14 +230,24 @@
 		                        <form method="post" class="form-horizontal" action="#" th:action="@{/checkFile}" th:object="${metadata}">
 		                          	<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
 			                       	<div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
-			                    	<input type="submit" class="btn btn-danger btn-lg" value="Check status - Step #3">
+			                    	<div class="row">
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+						                    	<input type="submit" class="btn btn-danger" value="Check status - Step #3">
+		                                  	</div>
+		                              	</div>
+		                              	<div class="col-6">
+		                                  	<div class="form-group">
+		                                  		<div th:switch="${fileStatus}">
+												    <button type="button" class="btn btn-primary" th:case="'0'">Waiting for uploading file</button>
+												    <button type="button" class="btn btn-info" th:case="'1'">System is checking</button>
+												    <button type="button" class="btn btn-success" th:case="'2'">File already checked</button>
+												    <button type="button" class="btn btn-danger" th:case="'3'">Some thing wen't wrong</button>
+												</div> 
+		                                  	</div>
+		                              	</div>
+			                       	</div>
 		                        </form>
-		                    	<div th:switch="${fileStatus}">
-								    <button type="button" class="btn btn-primary" th:case="'0'">Waiting for uploading file</button>
-								    <button type="button" class="btn btn-info" th:case="'1'">System is checking</button>
-								    <button type="button" class="btn btn-success" th:case="'2'">File already checked</button>
-								    <button type="button" class="btn btn-danger" th:case="'3'">Some thing wen't wrong</button>
-								</div> 
 	                    	</div>
 	                    </div>
 					</div>
