@@ -105,7 +105,7 @@ public class Server {
 	public String buildRequestHeader() {
 		String url = buildURL();
 		String authentication = this.username + ":" + this.password;
-		return String.format("POST %s \n %s", url, authentication);
+		return String.format("POST %s %n %s", url, authentication);
 	}
 	
 	/**

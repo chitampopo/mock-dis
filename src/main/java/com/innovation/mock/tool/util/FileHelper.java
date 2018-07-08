@@ -8,7 +8,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.ClassPathResource;
 
 import com.innovation.mock.tool.controller.FileController;
-import com.innovation.mock.tool.entity.DocumentStatus;
+import com.innovation.mock.tool.entity.DocumentServerStatus;
 import com.innovation.mock.tool.entity.ServerProfile;
 import com.jcraft.jsch.JSchException;
 
@@ -31,13 +31,13 @@ public class FileHelper {
 	}
 
 	public static String getStatusDisFile(boolean fileIsChecking, boolean fileProcessed) {
-		String fileStatus = DocumentStatus.WAITING_UPLOAD.getValue();
+		String fileStatus = DocumentServerStatus.WAITING_UPLOAD.getValue();
 		if (fileIsChecking && !fileProcessed) {
-			fileStatus = DocumentStatus.FILE_IS_CHECKING.getValue();
+			fileStatus = DocumentServerStatus.FILE_IS_CHECKING.getValue();
 		} else if (fileIsChecking && fileProcessed) {
-			fileStatus = DocumentStatus.ERROR.getValue();
+			fileStatus = DocumentServerStatus.ERROR.getValue();
 		} else if (!fileIsChecking && fileProcessed) {
-			fileStatus = DocumentStatus.FILE_CHECKED.getValue();
+			fileStatus = DocumentServerStatus.FILE_CHECKED.getValue();
 		}
 		return fileStatus;
 	}

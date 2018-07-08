@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.innovation.mock.tool.entity.ElcaData;
 import com.innovation.mock.tool.entity.ServerProfile;
 import com.innovation.mock.tool.entity.ServerProfileCollection;
@@ -37,7 +36,7 @@ public class ElcaController {
 	}
 
 	@RequestMapping(value = "/sendElcaRequest", method = RequestMethod.POST)
-	public String updateRequest(@ModelAttribute(Constants.ELCA_DATA) ElcaData elcaData, Model model) throws JsonProcessingException {
+	public String updateRequest(@ModelAttribute(Constants.ELCA_DATA) ElcaData elcaData, Model model) {
 		model.addAttribute(Constants.ELCA_DATA, elcaData);
 		buildBankNumber(elcaData);
 		String result = callWebservice(elcaData);

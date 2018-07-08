@@ -1,6 +1,6 @@
 package com.innovation.mock.tool.entity;
 
-public enum DocumentStatus {
+public enum DocumentServerStatus {
 	WAITING_UPLOAD("0"),
 	FILE_IS_CHECKING("1"),
 	FILE_CHECKED("2"),
@@ -8,7 +8,7 @@ public enum DocumentStatus {
 	
 	private String value;
 	
-	DocumentStatus(String value){
+	DocumentServerStatus(String value){
 		this.setValue(value);
 	}
 
@@ -16,7 +16,7 @@ public enum DocumentStatus {
 		return value;
 	}
 
-	public void setValue(String value) {
+	private void setValue(String value) {
 		this.value = value;
 	}
 }

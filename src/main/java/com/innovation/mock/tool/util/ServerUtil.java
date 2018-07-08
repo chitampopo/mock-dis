@@ -14,28 +14,29 @@ import com.innovation.mock.tool.entity.ServerProfileCollection;
 @Service
 public class ServerUtil {
 
-	public static Server updateServerInfo(Server server, ServerProfileCollection serverProfiles) {
-		Optional<ServerProfile> serverProfile = findCurrentServerProfile(server, serverProfiles);
-		
-		if(serverProfile.isPresent()) {
-			server.setHost(serverProfile.get().getHost());
-			server.setPort(serverProfile.get().getPort());
-			server.setApplication(serverProfile.get().getEnvironmentApplication());
-			server.setSshUsername(serverProfile.get().getSshUsername());
-			server.setSshPassword(serverProfile.get().getSshPassword());
-			server.setProject(StringUtils.split(serverProfile.get().getName(), "-")[0]);
-			server.setContext(serverProfile.get().getProfileContext());
-			server.setUsername(serverProfile.get().getAuthenUsername());
-			server.setPassword(serverProfile.get().getAuthenPassword());
-		}
+	public static Server updateServerInfo(Server server, ServerProfileCollection serverProfiles) throws Exception {
+		ServerProfile serverProfile = findCurrentServerProfile(server, serverProfiles);
+		server.setHost(serverProfile.getHost());
+		server.setPort(serverProfile.getPort());
+		server.setApplication(serverProfile.getEnvironmentApplication());
+		server.setSshUsername(serverProfile.getSshUsername());
+		server.setSshPassword(serverProfile.getSshPassword());
+		server.setProject(StringUtils.split(serverProfile.getName(), "-")[0]);
+		server.setContext(serverProfile.getProfileContext());
+		server.setUsername(serverProfile.getAuthenUsername());
+		server.setPassword(serverProfile.getAuthenPassword());
 		return server;
 	}
 
-	public static Optional<ServerProfile> findCurrentServerProfile(Server server, ServerProfileCollection serverProfiles) {
+	public static ServerProfile findCurrentServerProfile(Server server, ServerProfileCollection serverProfiles) throws Exception {
 		String serverName = server.getProject() + "-" + server.getServerType();
 		List<ServerProfile> serverProfilesList = serverProfiles.getServerProfiles();
 		Optional<ServerProfile> serverProductOptional = serverProfilesList.stream().filter(matchServer(serverName)).findFirst();
-		return serverProductOptional;
+		
+		if(serverProductOptional.isPresent()) {
+			return serverProductOptional.get();
+		}
+		throw new Exception();
 	}
 
 	private static Predicate<? super ServerProfile> matchServer(String serverName) {

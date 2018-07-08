@@ -12,6 +12,7 @@ import org.springframework.util.MultiValueMap;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.innovation.mock.tool.controller.WebUIController;
 import com.innovation.mock.tool.entity.Metadata;
+import com.innovation.mock.tool.entity.Server;
 import com.innovation.mock.tool.entity.WebidResults;
 
 public class RequestUtil {
@@ -50,5 +51,11 @@ public class RequestUtil {
         parts.add("webid_doc_signed", "");
         parts.add("webid_server_timestamp", "362054604");
         return new HttpEntity<MultiValueMap<String,String>>(parts, headers);
+	}
+
+	public static HttpEntity<MultiValueMap<String, String>> buildRequestHeader(Metadata metadata) throws JsonProcessingException {
+		Server currentServer = metadata.getServer();
+		HttpEntity<MultiValueMap<String, String>> request = buildRequestInformation(metadata, buildHeaders(currentServer.getUsername(), currentServer.getPassword()));
+		return request;
 	}
 }

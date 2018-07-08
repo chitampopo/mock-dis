@@ -2,8 +2,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Mock DIS Tool</title>
-    <meta name="description" content="Mock DIS Tool">
+    <title>Fintech Mock Tool</title>
+    <meta name="description" content="Fintech Mock Tool">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
@@ -27,12 +27,12 @@
             </div>
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Compose Request </a></li>
-                    <li><a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>History </a></li>
+                    <li><a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Swisscom DIS</a></li>
+                    <li><a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>ELCA</a></li>
                 </ul>
-            </div><!-- /.navbar-collapse -->
+            </div>
         </nav>
-    </aside><!-- /#left-panel -->
+    </aside>
 
     <div id="right-panel" class="right-panel">
         <div class="breadcrumbs">
@@ -53,60 +53,53 @@
 	                    	<div class="card-header"><strong>Compose DIS Request</strong></div>
 	                      	<div class="card-body card-block">
 	                        	<form action="#" th:object="${metadata}" method="post" class="form-horizontal" th:action="@{/updateRequest}" >
-	                            	<input type="hidden" th:field="*{server.host}">
-	                          		<input type="hidden" th:field="*{server.port}">
-	                          		<input type="hidden" th:field="*{server.context}">
-	                          		<input type="hidden" th:field="*{server.application}">
-	                          		<input type="hidden" th:field="*{server.username}">
-	                          		<input type="hidden" th:field="*{server.password}">
-	                          
 	                          		<div class="row">
 		                            	<div class="col-6">
-		                                	<div class="form-group">
-		                                    	<label for="project">Project</label>
-												<select class="form-control" id="project" th:field="*{server.project}">
+		                            		<div class="input-group">
+											  	<span class="input-group-addon col-5 text-right">* Project</span>
+											  	<select class="form-control" id="project" th:field="*{server.project}">
 											    	<option value="alpha">Alpha</option>
 											    	<option value="acrevis">Acrevis</option>
 											    </select>
-		                                  	</div>
+											</div>
 		                              	</div>
-		                              	<div class="col-6" >
-		                                	<div class="form-group">
-		                                    	<label for="serverType">Server</label>
-											    <select class="form-control" id="serverType" th:field="*{server.serverType}">
+		                              	<div class="col-6">
+		                              		<div class="input-group">
+											  	<span class="input-group-addon col-5 text-right">* Server</span>
+											  	<select class="form-control" id="serverType" th:field="*{server.serverType}">
 											    	<option value="local">Local</option>
 											      	<option value="dev">Dev</option>
 											      	<option value="test">Test</option>
 											      	<option value="quality">Quality</option>
 											    </select>
-		                                  	</div>
+											</div>
 		                              	</div>
 		                         	</div> 
-	                          
+	                          		<hr>
 		                          	<div class="row">
 		                            	<div class="col-6">
-		                                	<div class="form-group">
-		                                    	<label for="serverType">Confirmed result</label>
-											    <select class="form-control" id="serverType" th:field="*{request.confirmed}">
+		                            		<div class="input-group">
+											  	<span class="input-group-addon col-5 text-right">* Confirmed result</span>
+											  	<select class="form-control" id="serverType" th:field="*{request.confirmed}">
 											    	<option value="1">Successful</option>
 											    	<option value="0">Failed</option>
 											    </select>
-		                                  	</div>
+											</div>
 		                              	</div>
 										<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.webid_action_id', text = 'WebID Action ID')"></div>
 		                          	</div>
 		                          	
 		                          	<div class="row">
-		                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.cob_id', text = 'COB ID')"></div>
+		                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.cob_id', text = '* COB ID')"></div>
 		                          	
 		                              	<div class="col-6">
-		                                	<div class="form-group">
-		                                    	<label for="cc-exp" class="control-label mb-1">Account Holder</label>
-		                                      	<select name="select" id="select" class="form-control" th:field="*{request.accountHolder}">
-				                                	<option value="0">Account Holder 1</option>
-				                                	<option value="1">Account Holder 2</option>
+		                              		<div class="input-group">
+											  	<span class="input-group-addon col-5 text-right">* Account Holder</span>
+											  	<select name="select" id="select" class="form-control" th:field="*{request.accountHolder}">
+				                                	<option value="0">1</option>
+				                                	<option value="1">2</option>
 				                              	</select>
-		                                  	</div>
+											</div>
 		                              	</div>
 		                          	</div>
 	                          
@@ -118,7 +111,7 @@
 		                          	<div class="row">
 		                              	<div class="col-6">
 		                                  	<div class="form-group">
-		                                      <a class="btn btn-link" data-toggle="collapse" href="#collapseRequest" role="button" aria-expanded="false" aria-controls="collapseRequest">Show/Hide advance options</a>
+		                                      <a class="btn btn-link" data-toggle="collapse" href="#collapseRequest" role="button" aria-expanded="false" aria-controls="collapseRequest">Show/Hide more information</a>
 		                                  	</div>
 		                              	</div>
 		                          	</div>
@@ -128,137 +121,182 @@
 		                       				<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.city', text = 'City')"></div>
 		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.zip', text = 'Zip code')"></div>
 			                          	</div>
-	                          
 			                          	<div class="row">
 			                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.street', text = 'Street')"></div>
 		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.street_nr', text = 'Street number')"></div>
 			                          	</div>
-	                          
 			                          	<div class="row">
 			                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.dob', text = 'Date of birth')"></div>
 		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.exhibition_authority', text = 'Exhibition Authority')"></div>
 			                          	</div>
-	                          
 			                          	<div class="row">
 			                              	<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.expires_date', text = 'Expires Date')"></div>
 		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.date_of_issue', text = 'Date of issue')"></div>
 			                          	</div>
-	                          
 			                          	<div class="row">
 			                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.pass_nr', text = 'Pass number')"></div>
 		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.pass_type', text = 'Pass type')"></div>
 			                          	</div>
-	                          
 			                          	<div class="row">
 			                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.birthplace', text = 'Birthplace')"></div>
 		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.birthname', text = 'Birth Name')"></div>
 			                          	</div>
-	                          
 			                          	<div class="row">
 			                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data.country', text = 'Country Code')"></div>
 		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.user_data_pass.nationality', text = 'Nationality Code')"></div>
 			                          	</div>
-	                          
 			                          	<div class="row">
 			                          		<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.callcenter_data.callcenter_data_id', text = 'Call Center Data ID')"></div>
 		                          			<div th:replace="fragments/input-fragment :: inputField(fieldInput = 'request.callcenter_data.callcenter_id', text = 'Call Center ID')"></div>
 			                          	</div>
 	                     			</div><!-- end collapseRequest -->
-	                        		<input type="submit" class="btn btn-primary btn-sm" value="Update Request">
+	                     			<div class="row">
+	                     				<div class="col-8"></div>
+		                        		<div class="col-4 text-right">
+		                        			<input type="submit" class="btn btn-primary" value="Update Request">
+                                			<button type="button" class="btn" data-toggle="modal" data-target="#requestReview">Review request</button>
+	                                	</div>
+		                          	</div>
 	                       		</form>
 	                     	</div>
 	                   	</div>
                   	</div>
-
+					
                   	<div class="col-lg-6">
 	                    <div class="card">
 	                      	<div class="card-header"><strong>Request</strong></div>
 	                        <div class="card-body card-block">
-	                        	<form method="post" class="form-horizontal" action="#" th:action="@{/sendRequest}" th:object="${metadata}">
-			                      	<div class="row">
-		                              	<div class="col-6">
-		                                  	<div class="form-group">
-		                                      	<a class="btn btn-link" data-toggle="collapse" href="#collapseRequestReview" role="button" aria-expanded="false" aria-controls="collapseRequestReview">Show/Hide request information</a>
-		                                  	</div>
-		                              	</div>
-			                       	</div>
-			                       	<div id="collapseRequestReview" class="collapse">
-			                       		<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
-			                       		<div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
-			                       		
-				                        <div class="row form-group">
-				                        	<div class="col-12 col-md-12">
-				                            	<textarea name="textarea-input" id="header" rows="3" class="form-control" th:text="${metadata.server.buildRequestHeader()}"></textarea>
-				                            </div>
-				                        </div>
-				                        <div class="row form-group">
-				                        	<div class="col-12 col-md-12">
-				                            	<textarea name="textarea-input" id="request-body" rows="30" class="form-control" th:text="${metadata.request.toRequestBody()}"></textarea>
-				                            </div>
-				                        </div>
-		                          	</div>
-		                          	<div class="row">
-		                              	<div class="col-6">
-		                                  	<div class="form-group">
-		                        				<input type="submit" class="btn btn-danger" value="Submit Request - Step #1">
-		                                  	</div>
-		                              	</div>
-		                              	<div class="col-6">
-		                                  	<div class="form-group">
-		                                  		<div th:switch="${responseStatus}">
-												    <button type="button" class="btn btn-primary" th:case="'0'">Waiting for sending request</button>
-												    <button type="button" class="btn btn-success" th:case="'1'">Successful</button>
-												    <button type="button" class="btn btn-danger" th:case="'2'">Error</button>
-												</div> 
-		                                  	</div>
-		                              	</div>
-			                       	</div>
-	                        	</form>
-	                        	
-	                        	<hr>
-	                        	<form method="post" class="form-horizontal" action="#" th:action="@{/uploadFile}" th:object="${metadata}">
-		                          	<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
-			                       	<div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
-			                    	<input type="submit" class="btn btn-danger" value="Submit File - Step #2">
-		                        </form>
+	                        	<div class="row">
+	                     			<div class="col-2">
+	                     				<img alt="" src="images/stepers.png" width="264" height="350">
+	                     			</div>
+	                     			<div class="col-6">
+			                        	<div class="form-group">
+		                        			<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#confirmSendRequest">Send DIS request</button>
+		                               		<div th:switch="${metadata.requestStatus}">
+		                               			<div class="alert alert-success" role="alert" th:case="'1'"><strong>Successful!</strong> You already sent request.</div>
+												<div class="alert alert-danger" role="alert" th:case="'0'"><strong>Opp!</strong> Something wen't wrong.</div>
+												<div class="alert alert-info" role="alert" th:case="'2'">Waiting for sending request.</div>
+											</div> 
+			                        	</div>
+			                        	<div class="form-group">
+		                        			<button type="button" class="btn btn-primary btn-lg" onclick="submitStep2()">Submit DIS documents</button>
+		                               		<div th:switch="${metadata.sendFileStatus}">
+		                               			<div class="alert alert-success" role="alert" th:case="'1'"><strong>Successful!</strong> You already sent documents.</div>
+		                               			<div class="alert alert-danger" role="alert" th:case="'0'"><strong>Opp!</strong> Something wen't wrong.</div>
+												<div class="alert alert-info" role="alert" th:case="'2'">Waiting for sending documents.</div>
+											</div> 
+			                        	</div>
+			                        	<div class="form-group">
+			                        		<button type="button" class="btn btn-primary btn-lg" onclick="submitStep3()">Check DIS documents</button>
+		                               		<div th:switch="${metadata.serverFileStatus}">
+												<div class="alert alert-info" role="alert" th:case="'0'">Have no checked yet.</div>
+		                               			<div class="alert alert-info" role="alert" th:case="'1'">System will scan you file soon.</div>
+		                               			<div class="alert alert-success" role="alert" th:case="'2'"><strong>Finished!</strong>Please check dossier.</div>
+												<div class="alert alert-danger" role="alert" th:case="'3'"><strong>Opp!</strong> Something wen't wrong.</div>
+											</div> 
+			                        	</div>
+	                      			</div>
+	                      		</div>
 	                      	</div>
-	                    </div>
-	                    
-	                    <div class="card">
-	                      	<div class="card-header"><strong>Check file</strong></div>
-	                      	<div class="card-body card-block">
-		                        <form method="post" class="form-horizontal" action="#" th:action="@{/checkFile}" th:object="${metadata}">
-		                          	<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
-			                       	<div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
-			                    	<div class="row">
-		                              	<div class="col-6">
-		                                  	<div class="form-group">
-						                    	<input type="submit" class="btn btn-danger" value="Check status - Step #3">
-		                                  	</div>
-		                              	</div>
-		                              	<div class="col-6">
-		                                  	<div class="form-group">
-		                                  		<div th:switch="${fileStatus}">
-												    <button type="button" class="btn btn-primary" th:case="'0'">Waiting for uploading file</button>
-												    <button type="button" class="btn btn-info" th:case="'1'">System is checking</button>
-												    <button type="button" class="btn btn-success" th:case="'2'">File already checked</button>
-												    <button type="button" class="btn btn-danger" th:case="'3'">Some thing wen't wrong</button>
-												</div> 
-		                                  	</div>
-		                              	</div>
-			                       	</div>
-		                        </form>
-	                    	</div>
 	                    </div>
 					</div>
 				</div>
 			</div><!-- .animated -->
-		</div><!-- .content -->
-	</div><!-- /#right-panel -->
+			
+			<!-- Modal section -->
+			<div id="requestReview" class="modal fade" role="dialog" >
+            	<div class="modal-dialog modal-lg">
+                	<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+			            	<div class="row form-group">
+			                	<div class="col-12 col-md-12">
+			                    	<textarea name="textarea-input" id="header" rows="3" class="form-control" th:text="${metadata.server.buildRequestHeader()}"></textarea>
+			                    </div>
+			                </div>
+			                <div class="row form-group">
+			                	<div class="col-12 col-md-12">
+			                    	<textarea name="textarea-input" id="request-body" rows="30" class="form-control" th:text="${metadata.request.toRequestBody()}"></textarea>
+			                    </div>
+			                </div>
+		              	</div>
+	                    <div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+						</div>
+	                </div>
+            	</div>
+			</div>
+            
+            <div class="modal fade" id="confirmSendRequest" tabindex="-1" role="dialog" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Send request option</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        You will send request. Do you want to send DIS contract as well?
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="submitStep1()">No, later</button>
+			        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="submitTwoFirstSteps()">Yes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 
-    <script src="js/vendor/jquery-2.1.4.min.js"></script>
+			<!-- End modal section -->
+			
+			<!-- Form section -->
+			<form method="post" id="sendRequest" class="form-horizontal" action="#" th:action="@{/sendRequest}" th:object="${metadata}">
+          		<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
+   				<div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
+           	</form>
+           	
+           	<form method="post" id="submitFile" class="form-horizontal" action="#" th:action="@{/uploadFile}" th:object="${metadata}">
+              	<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
+            	<div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
+            </form>
+            
+            <form method="post" id="submitBoth" class="form-horizontal" action="#" th:action="@{/submitBoth}" th:object="${metadata}">
+              	<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
+            	<div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
+            </form>
+            
+            <form method="post" id="checkFile" class="form-horizontal" action="#" th:action="@{/checkFile}" th:object="${metadata}">
+            	<div th:replace="fragments/hidden-request-input.html :: hiddenRequestInput"></div>
+                <div th:replace="fragments/hidden-server-input.html :: hiddenServerInput"></div>
+            </form>
+      		<!-- End form section -->
+		</div><!-- .content -->
+	</div>
+
     <script src="js/popper.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+    	function submitStep1(){
+    		document.getElementById('sendRequest').submit();
+    	}
+    	
+    	function submitStep2(){
+    		document.getElementById('submitFile').submit();
+    	}
+    	
+    	function submitStep3(){
+    		document.getElementById('checkFile').submit();
+    	}
+    	
+    	function submitTwoFirstSteps(){
+    		document.getElementById('submitBoth').submit();
+    	}
+    </script>
 </body>
 </html>

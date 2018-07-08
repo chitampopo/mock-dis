@@ -2,10 +2,8 @@ package com.innovation.mock.tool.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Optional;
+import java.util.Arrays;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -17,7 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.innovation.mock.tool.entity.DocumentStatus;
+import com.innovation.mock.tool.entity.DocumentServerStatus;
+import com.innovation.mock.tool.entity.FileSentStatus;
 import com.innovation.mock.tool.entity.Metadata;
 import com.innovation.mock.tool.entity.Request;
 import com.innovation.mock.tool.entity.ServerProfile;
@@ -26,7 +25,6 @@ import com.innovation.mock.tool.util.Constants;
 import com.innovation.mock.tool.util.FileHelper;
 import com.innovation.mock.tool.util.ServerUtil;
 import com.innovation.mock.tool.util.SftpHelper;
-import com.jcraft.jsch.JSchException;
 
 @Controller
 public class FileController {
@@ -46,53 +44,58 @@ public class FileController {
 
 	@PostMapping("/uploadFile")
 	public String singleFileUpload(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) throws IOException {
-		logger.info("Begin upload file");
-		File sourceFile = FileHelper.getSourceFileByAccountHolder(metadata.getRequest().getAccountHolder(), sourceFileName, sourceFileNameForAH2);
-	    
-		Optional<ServerProfile> serverProfile = ServerUtil.findCurrentServerProfile(metadata.getServer(), serverProfiles);
-		if (serverProfile.isPresent()) {
-			logger.info("Server profile: " + serverProfile.get().toString());
-			if (!serverProfile.get().getName().contains("local")) {
-				sendFileToExternalServer(metadata.getRequest(), serverProfile.get());
-			} else {
-				sendFileInteralServer(metadata.getRequest().getCob_id(), sourceFile, serverProfile.get().getDisFolder());
-			}
-		}
-		model.addAttribute(Constants.FILE_STATUS, DocumentStatus.FILE_IS_CHECKING.getValue());
+		Request request = metadata.getRequest();
+		try {
+			File sourceFile = FileHelper.getSourceFileByAccountHolder(request.getAccountHolder(), sourceFileName, sourceFileNameForAH2);
+			ServerProfile serverProfile = ServerUtil.findCurrentServerProfile(metadata.getServer(), serverProfiles);
+			handleSendingFile(request, sourceFile, serverProfile);
+		} catch (Exception e) {
+			logger.error(Arrays.toString(e.getStackTrace()));
+			metadata.setSendFileStatus(FileSentStatus.ERROR.getValue());
+		} 
+		metadata.setSendFileStatus(FileSentStatus.SUCCESSFUL.getValue());
 		model.addAttribute(Constants.METADATA, metadata);
 		return Constants.MAIN_PAGE;
+	}
+
+	private void handleSendingFile(Request request, File sourceFile, ServerProfile serverProfile) throws IOException {
+		if (!serverProfile.getName().contains("local")) {
+			sendFileToExternalServer(request, serverProfile);
+		} else {
+			sendFileInteralServer(request.getCob_id(), sourceFile, serverProfile.getDisFolder());
+		}
 	}
 
 	@PostMapping("/checkFile")
-	public String checkFileStatus(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) throws IOException, NumberFormatException, JSchException {
-		String fileStatus = DocumentStatus.WAITING_UPLOAD.getValue();
-		Optional<ServerProfile> serverProfile = ServerUtil.findCurrentServerProfile(metadata.getServer(), serverProfiles);
-		logger.info("Server profile available: " + serverProfile.isPresent());
-		if (serverProfile.isPresent()) {
-			logger.info("Server profile: " + serverProfile.get().toString());
-			if (!serverProfile.get().getName().contains("local")) {
-				fileStatus = FileHelper.checkFileRemoteServer(metadata.getRequest().getCob_id(), serverProfile.get(), sourceFileName);
+	public String checkFileStatus(@ModelAttribute(Constants.METADATA) Metadata metadata, Model model) {
+		String fileStatus = DocumentServerStatus.WAITING_UPLOAD.getValue();
+		try {
+			ServerProfile serverProfile = ServerUtil.findCurrentServerProfile(metadata.getServer(), serverProfiles);
+			if (!serverProfile.getName().contains("local")) {
+				fileStatus = FileHelper.checkFileRemoteServer(metadata.getRequest().getCob_id(), serverProfile, sourceFileName);
 			} else {
 				fileStatus = FileHelper.checkFileLocal(savedfilePath, fileInProcessedByDIS);
 			}
+		} catch (Exception e) {
+			logger.error(Arrays.toString(e.getStackTrace()));
 		}
-		model.addAttribute(Constants.FILE_STATUS, fileStatus);
+		
+		metadata.setServerFileStatus(fileStatus);
 		model.addAttribute(Constants.METADATA, metadata);
 		return Constants.MAIN_PAGE;
 	}
 
-	private void sendFileInteralServer(String cobId, File sourceFile, String disFolder) throws IOException, FileNotFoundException {
+	private void sendFileInteralServer(String cobId, File sourceFile, String disFolder) throws IOException {
 		String filePathInDisFolder = FileHelper.buildFilePathInDisFolder(cobId, disFolder, sourceFile.getName());
-		logger.info("File path in dis folder: " + filePathInDisFolder);
 		String filePathInProcessedByDisFolder = FileHelper.buildFilePathInProcessByDISFolder(cobId, disFolder, sourceFile.getName());
-		logger.info("File path in processed by dis folder: " + filePathInProcessedByDisFolder);
+		
 		FileHelper.deleteIfExisted(filePathInDisFolder);
 		FileHelper.deleteIfExisted(filePathInProcessedByDisFolder);
+		
 		savedfilePath = filePathInDisFolder;
 		fileInProcessedByDIS = filePathInProcessedByDisFolder;
-		InputStream source = new FileInputStream(sourceFile);
-		File destFile = new File(filePathInDisFolder);
-		FileUtils.copyInputStreamToFile(source, destFile);
+		
+		FileUtils.copyInputStreamToFile(new FileInputStream(sourceFile), new File(filePathInDisFolder));
 	}
 
 	private void sendFileToExternalServer(Request request, ServerProfile serverProfile) throws IOException {

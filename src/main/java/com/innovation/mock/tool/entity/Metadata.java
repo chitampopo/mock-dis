@@ -10,7 +10,9 @@ import org.springframework.context.annotation.PropertySource;
 public class Metadata {
 	private Request request;
 	private Server server;
-	private String status;
+	private String requestStatus = "2";
+	private String sendFileStatus = "2";
+	private String serverFileStatus = "0";
 
 	public Metadata() {
 		this.request = new Request();
@@ -33,12 +35,27 @@ public class Metadata {
 		this.server = server;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getRequestStatus() {
+		return requestStatus;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setRequestStatus(String requestStatus) {
+		this.requestStatus = requestStatus;
 	}
 
+	public String getSendFileStatus() {
+		return sendFileStatus;
+	}
+
+	public void setSendFileStatus(String sendFileStatus) {
+		this.sendFileStatus = sendFileStatus;
+	}
+
+	public String getServerFileStatus() {
+		return serverFileStatus;
+	}
+
+	public void setServerFileStatus(String serverFileStatus) {
+		this.serverFileStatus = serverFileStatus;
+	}
 }
